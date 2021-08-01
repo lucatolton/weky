@@ -1,5 +1,6 @@
-const { Schema } = require('mongoose');
-const usersDB = new Schema({
+const { Schema, model } = require('mongoose');
+
+module.exports = model('usersDB', new Schema({
 	id: { type: String, },
 	registeredAt: { type: Number, default: Date.now() },
 
@@ -12,6 +13,4 @@ const usersDB = new Schema({
 	premium: { type: Boolean, default: false },
 	moderator: { type: Boolean, default: false },
 	cooldowns: { type: Object, default: {} },
-}, { minimize: false });
-
-module.exports = mongoose.model('usersDB', usersDB);
+}, { minimize: false }));

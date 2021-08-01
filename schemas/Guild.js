@@ -1,6 +1,6 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-module.exports = mongoose.model('guildsDB', new Schema({
+module.exports = model('guildsDB', new Schema({
 	id: { type: String, required: true },
 	registeredAt: { type: Number, default: Date.now(), },
 	chatbot_enabled: { type: Boolean, default: false, },

@@ -1,6 +1,6 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-module.exports = mongoose.model('buttonroles', new Schema({
+module.exports = model('buttonroles', new Schema({
 	GuildID: { type: String, required: true },
 	MessageID: { type: String, required: true },
 	RoleID: { type: String, required: true },

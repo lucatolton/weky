@@ -1,6 +1,6 @@
-const { Schema } = require('mongoose')
-
-module.exports = mongoose.model('rpg', Schema({
+const mongoose = require('mongoose')
+const items = require("../data/rpg-data");
+const profileSchema = mongoose.Schema({
   id: { type: String, required: true },
   hero: {
     type: Array, default: [{
@@ -51,16 +51,26 @@ module.exports = mongoose.model('rpg', Schema({
   EmeraldP: { type: Number, default: 0 },
   DiamondP: { type: Number, default: 0 },
 
-  powerups: { type: Array, default: [] },
+  powerups: {type: Array, default: []},
 
+  rocks: {
+    DiamondP: { type: Number, default: 0 },
+  },
   stats: {
     planet: { type: String, default: "Terra" },
     planetsUnlocked: { type: Array, default: ['Terra'] },
+
     mobsKilled: { type: Number, default: 0 },
     diedCounter: { type: Number, default: 0 },
     mobsDefeated: { type: Array, default: [] },
+    
     timeQuest: { type: Number, default: null },
     hasQuest: { type: Boolean, default: false },
+
+    isInSpaceShip: { type: Boolean, default: false },
+    inWhatSpaceShip: { type: String, default: null },
+
+    stamina: { type: Number, default: 100 },
   }
 })
-)
+module.exports = mongoose.model('rpg', profileSchema)
