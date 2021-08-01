@@ -217,7 +217,7 @@ module.exports = {
 			return;
 		} else {
 			data = new rpgSchema({ id: id }).save()
-			message.channel.reply('Heyo ' + message.author.tag + ', destiny here. I\'ve choosed you to be my hero. I will give you the identity of Dante. Goodluck in battles!')
+			message.channel.send('Heyo ' + message.author.tag + ', destiny here. I\'ve choosed you to be my hero. I will give you the identity of Dante. Goodluck in battles!')
 		}
 	},
 	async user(id, message) {
