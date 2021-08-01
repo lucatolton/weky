@@ -17,9 +17,7 @@ module.exports = async (client, message) => {
 		data.guild = guildDB;
 		data.user = userDB;
 		data.rpg = rpgDB
-
-
-
+ 
 		if (data.user.blacklisted == true) return;
 
 
@@ -67,12 +65,12 @@ module.exports = async (client, message) => {
 				message.channel.send(`\`${u.tag}\` is currently afk for: \`${userData.afkReason}\``)
 			}
 		});
-
+if(data.guild.chatbot_enabled){
 		const channel = data.guild.chatbot_channel;
 		if (!channel) return;
 		const sendToChannel = message.guild.channels.cache.get(channel);
-		if (!sendToChannel) return;
-		if (sendToChannel.id !== message.channel.id) return;
+
+		if (sendToChannel.id == message.channel.id) {
 		try {
 			const fetched = await fetch(`https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(message.content)}&botname=${encodeURIComponent('Weky')}&ownername=${encodeURIComponent('Face')}&user=${encodeURIComponent(message.author.id)}`, {});
 			const response = await fetched.json();
@@ -82,7 +80,8 @@ module.exports = async (client, message) => {
 			message.reply('Something went wrong while fetching...');
 			console.log(e);
 		}
-
+        }
+}
 		const prefix = 'wek '
 		if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
 			const m = new Discord.MessageEmbed()
