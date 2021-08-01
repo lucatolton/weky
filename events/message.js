@@ -71,6 +71,7 @@ module.exports = async (client, message) => {
 		const channel = data.guild.chatbot_channel;
 		if (!channel) return;
 		const sendToChannel = message.guild.channels.cache.get(channel);
+		if (!sendToChannel) return;
 		if (sendToChannel.id !== message.channel.id) return;
 		try {
 			const fetched = await fetch(`https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(message.content)}&botname=${encodeURIComponent('Weky')}&ownername=${encodeURIComponent('Face')}&user=${encodeURIComponent(message.author.id)}`, {});
