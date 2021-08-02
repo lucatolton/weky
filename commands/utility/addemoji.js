@@ -34,6 +34,7 @@ module.exports.run = async (client, message, args, utils, data) => {
       message.channel.send("I can't work with this!");
     }
   } catch (e) {
+    console.log(e)
       return utils.errorEmbed(message, e.message);
   }
 };
