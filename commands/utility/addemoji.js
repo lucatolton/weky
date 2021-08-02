@@ -11,10 +11,10 @@ module.exports.run = async (client, message, args, utils, data) => {
   const name = args.slice(1).join(" ");
 
   if (!emoji) {
-    return utils.errorEmbed(`Please Give Me A Emoji!`, message);
+    return utils.errorEmbed(message, `Please Give Me A Emoji!`);
   }
   if (!name) {
-    return utils.errorEmbed(`No emoji name specified`, message)
+    return utils.errorEmbed(message, `No emoji name specified`)
   }
   try {
     if (emoji.startsWith("https://cdn.discordapp.com")) {
@@ -26,28 +26,17 @@ module.exports.run = async (client, message, args, utils, data) => {
     const customEmoji = Util.parseEmoji(emoji);
 
     if (customEmoji.id) {
-      const link = `https://cdn.discordapp.com/emojis/${customEmoji.id}.${customEmoji.animated ? "gif" : "png"
-        }`;
+      const link = `https://cdn.discordapp.com/emojis/${customEmoji.id}.${customEmoji.animated ? "gif" : "png"}`;
 
-      let fb = await message.guild.emojis.create(
-        `${link}`,
-        `${name || `${customEmoji.name}`}`
-      );
-      return message.channel.send('<:' + Util.parseEmoji(fb).name + ':' + Util.parseEmoji(fb).id + `> has been added as ${name}`);
+      let fb = await message.guild.emojis.create(`${link}`, `${name || `${customEmoji.name}`}`);
+      return message.channel.send('<:' + Util.parseEmoji(fb).name + ':' + Util.parseEmoji(fb).id + `> has been added as \`${name}\``);
     } else {
-      const foundEmoji = parse(emoji, { assetType: "png" });
-      if (!foundEmoji[1]) {
-        return message.channel.send("I can't work with this!");
-      }
-
-      message.channel.send(
-        "Bruv this is a normal emoji what you can use anywhere"
-      );
+      message.channel.send("I can't work with this!");
     }
   } catch (e) {
     if (
       String(e).includes("DiscordAPIError: Maximum number of emojis reached (50)")) {
-      return utils.errorEmbed("Maximum emoji count reached for this Server!", message);
+      return utils.errorEmbed(message, "Maximum emoji count reached for this Server!");
     }
   }
 };
