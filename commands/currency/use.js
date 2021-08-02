@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 
     if (userx.db[wiki.name] <= 0) return utils.errorEmbed(message, 'The specified power up is not in your backpack!')
 
-    if (userx.db[wiki.name + 'P'] = 0) return utils.errorEmbed(message, 'The specified power up is already used!')
+    if (userx.db.powerups.includes(wiki.powerName)) return utils.errorEmbed(message, 'The specified power up is already used!')
 
     let custom = wiki.emoji + ' **' + wiki.name + '**'
 
