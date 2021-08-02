@@ -48,6 +48,10 @@ module.exports.emojis = {
 	"Sapphire": "",
 	"Emerald": "",
 	"Diamond": "",
+	//
+	// 	859763837346381864
+	// 859766149339283457
+	// 860079590344753163
 	"PoudretteiteID": "859763837346381864",
 	"TanzaniteID": "859766149339283457",
 	"BenitoiteID": "860079427261693992",
