@@ -5,9 +5,9 @@ const config = require('../../util/config.json');
 module.exports.run = async (client, message, args, utils, data) => {
     if (message.guild.id !== '830003680983646278') return;
 
-    if (!args[0]) return message.reply(`Please specify the bot's id, example here: \`wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/rickroll here\``)
-    if (!args[1]) return message.reply(`Please specify the bot's prefix, example here: \`wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/rickroll here\``)
-    if (!args.slice(2).join(' ')) return message.reply(`Please specify the bot's description, as many characters as you can, example here: \`wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/rickroll here\``)
+    if (!args[0]) return message.reply(`Please specify the bot's id, example here: \`wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/ rickroll here\``)
+    if (!args[1]) return message.reply(`Please specify the bot's prefix, example here: \`wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/ rickroll here\``)
+    if (!args.slice(2).join(' ')) return message.reply(`Please specify the bot's description, as many characters as you can, example here: \`wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/ rickroll here\``)
 
     client.users.cache.get('778518819055861761').send(
         new Discord.MessageEmbed()
@@ -22,7 +22,7 @@ module.exports.help = {
     aliases: [],
     name: 'addbot',
     description: 'Subtim your bot to be added in Weky Development.',
-    usage: config.prefix + 'wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/rickroll here',
+    usage: config.prefix + 'wek addbot 123456789123456789 c? A very cool bot it has many futures add it now also check github to check if its safe discord.gg/ rickroll here',
 };
 
 module.exports.config = {
