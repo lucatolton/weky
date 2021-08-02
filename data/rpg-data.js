@@ -98,40 +98,40 @@ module.exports.powerups = [
     description: "**Opal** starts a rain of moon fragments and multiply the total with `10%`"
   },
   //NON SHOP
-  {
-    name: "Ruby",
-    aliases: ["ru", 'rub', 'ruby'],
-    emoji: require('../util/utils').emojis.Ruby,
-    emojiID: require('../util/utils').emojis.RubyID,
-    cost: false,
-    powerName: "",
-    description: ""
-  },
-  {
-    name: "Sapphire",
-    aliases: ["sapp", 'sapphir', 'sapphire'],
-    emoji: require('../util/utils').emojis.Sapphire,
-    emojiID: require('../util/utils').emojis.SapphireID,
-    cost: false,
-    powerName: "",
-    description: ""
-  },
-  {
-    name: "Emerald",
-    aliases: ["em", 'emer', 'emerald'],
-    emoji: require('../util/utils').emojis.Emerald,
-    emojiID: require('../util/utils').emojis.EmeraldID,
-    cost: false,
-    powerName: "Aero Calling",
-    description: ""
-  },
-  {
-    name: "Diamond",
-    aliases: ["diam", 'diamon', 'diamond'],
-    emoji: require('../util/utils').emojis.Diamond,
-    emojiID: require('../util/utils').emojis.DiamondID,
-    cost: false,
-    powerName: "",
-    description: ""
-  }
+  // {
+  //   name: "Ruby",
+  //   aliases: ["ru", 'rub', 'ruby'],
+  //   emoji: require('../util/utils').emojis.Ruby,
+  //   emojiID: require('../util/utils').emojis.RubyID,
+  //   cost: false,
+  //   powerName: "",
+  //   description: ""
+  // },
+  // {
+  //   name: "Sapphire",
+  //   aliases: ["sapp", 'sapphir', 'sapphire'],
+  //   emoji: require('../util/utils').emojis.Sapphire,
+  //   emojiID: require('../util/utils').emojis.SapphireID,
+  //   cost: false,
+  //   powerName: "",
+  //   description: ""
+  // },
+  // {
+  //   name: "Emerald",
+  //   aliases: ["em", 'emer', 'emerald'],
+  //   emoji: require('../util/utils').emojis.Emerald,
+  //   emojiID: require('../util/utils').emojis.EmeraldID,
+  //   cost: false,
+  //   powerName: "Aero Calling",
+  //   description: ""
+  // },
+  // {
+  //   name: "Diamond",
+  //   aliases: ["diam", 'diamon', 'diamond'],
+  //   emoji: require('../util/utils').emojis.Diamond,
+  //   emojiID: require('../util/utils').emojis.DiamondID,
+  //   cost: false,
+  //   powerName: "",
+  //   description: ""
+  // }
 ]
