@@ -11,10 +11,10 @@ module.exports.run = async (client, message, args, utils, data) => {
   const name = args.slice(1).join(" ");
 
   if (!emoji) {
-    return utils.errorEmbed(`Please Give Me A Emoji!`);
+    return utils.errorEmbed(`Please Give Me A Emoji!`, message);
   }
   if (!name) {
-    return utils.errorEmbed(`No emoji name specified`)
+    return utils.errorEmbed(`No emoji name specified`, message)
   }
   try {
     if (emoji.startsWith("https://cdn.discordapp.com")) {
@@ -47,7 +47,7 @@ module.exports.run = async (client, message, args, utils, data) => {
   } catch (e) {
     if (
       String(e).includes("DiscordAPIError: Maximum number of emojis reached (50)")) {
-      return utils.errorEmbed("Maximum emoji count reached for this Server!");
+      return utils.errorEmbed("Maximum emoji count reached for this Server!", message);
     }
   }
 };
