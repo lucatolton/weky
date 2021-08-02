@@ -88,7 +88,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 					const chanceFor = Math.floor(Math.random() * 100)
 					const chanceFor2 = Math.floor(Math.random() * 100)
 					const tempPlayer = (player + 1) % 2;
-					let randNumb = Math.floor(Math.random()*gameData[Math.abs(tempPlayer-1)].damage)
+					let randNumb = Math.floor(Math.random() * gameData[Math.abs(tempPlayer - 1)].damage)
 
 					if (chanceFor <= 5) {
 						if (member.db.powerups.includes('Blood Eater I')) {
@@ -121,7 +121,9 @@ module.exports.run = async (client, message, args, utils, data) => {
 
 					if (member.db.powerups.includes('Sword Agility') && gameData[tempPlayer].member === member.equipedHero.heroName) {
 						gameData[tempPlayer].damage *= Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
-
+						
+						console.log(Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
+						)
 						data.rpg.modify(message.author.id, 'PoudretteiteP', require('weky').randomizeNumber(30, 10), '-=', message)
 					}
 					player = (player + 1) % 2;

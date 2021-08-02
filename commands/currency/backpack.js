@@ -18,6 +18,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     require('../../data/rpg-data').powerups.forEach((e) => {
         if (userx.db[e.name] > 0) {
             i++
+            console.log(e.emojiID)
             select.addOption(new disbut.MessageMenuOption()
                 .setLabel(e.name)
                 .setValue(e.name)
