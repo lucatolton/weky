@@ -34,10 +34,7 @@ module.exports.run = async (client, message, args, utils, data) => {
       message.channel.send("I can't work with this!");
     }
   } catch (e) {
-    if (
-      String(e).includes("DiscordAPIError: Maximum number of emojis reached (50)")) {
-      return utils.errorEmbed(message, "Maximum emoji count reached for this Server!");
-    }
+      return utils.errorEmbed(message, e.message);
   }
 };
 
