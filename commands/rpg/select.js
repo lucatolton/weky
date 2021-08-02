@@ -99,7 +99,7 @@ module.exports.help = {
 	aliases: ['s'],
 	name: 'select',
 	description: 'Select your hero in Weky Rpg!',
-	usage: 'wek select <hero>',
+	usage: 'wek select hero <hero>\n> wek select moon <moon>',
 };
 
 module.exports.config = {
