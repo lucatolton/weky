@@ -1,12 +1,13 @@
 const Discord = require('discord.js');
+const rpgSchema = require('../schemas/rpg');
 
 module.exports.prefix = 'wek '
 
 
-module.exports.shuffleArray = function (array){
+module.exports.shuffleArray = function (array) {
 	return array.map((value) => ({ value, sort: Math.random() }))
-	.sort((a, b) => a.sort - b.sort)
-	.map(({ value }) => value)
+		.sort((a, b) => a.sort - b.sort)
+		.map(({ value }) => value)
 }
 module.exports.randomID = (length) => {
 	var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -68,6 +69,8 @@ module.exports.emojis = {
 	"spaceship": "https://cdn.discordapp.com/attachments/798509295712075795/867752742961545217/Untitled455_20210722195925.png",
 }
 
+
+
 module.exports.use = async function (id, power, data, message) {
 
 
@@ -78,6 +81,7 @@ module.exports.use = async function (id, power, data, message) {
 	data.modify(id, 'powerups', wiki.powerName, 'push', message)
 	data.modify(id, wiki.name + 'P', wiki.durability, '=', message)
 	data.modify(id, wiki.name, 1, '-=', message)
+	await rpgSchema.findOneAndUpdate({ id: id }, data, { upset: true })
 	return { custom, wiki }
 }
 module.exports.createButtonPagination = async function (array, message) {
