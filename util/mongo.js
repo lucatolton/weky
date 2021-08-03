@@ -335,9 +335,9 @@ module.exports = {
 		if (db.heroMn >= db.heroLvlUpReq) {
 			db.heroLvl += 1;
 			let e = 500 * (1.5 + db.heroLvl)
+			db.heroMn = db.heroMn / db.heroLvlUpReq;
 			db.heroLvlUpReq += db.heroLvl;
 			db.heroLvlUpReq *= 1.5;
-			db.heroMn = 0;
 			db.heroHp += 1
 			db.heroDmg += 1
 			this.addAero(id, message, e)
