@@ -220,7 +220,7 @@ module.exports = {
 		}
 	},
 	async user(id, message) {
-		require('../schemas/rpg').findOne({id:message.author.id}, async (err, gay) => {
+		require('../schemas/rpg').findOne({id:message.author.id}, async (err, data) => {
 			await ssSchema.findOne({ id: id }).lean().exec().then(async (dataShips) => {
 				if (!data || typeof data == null) { 
 					return this.addUser(id, message) 
