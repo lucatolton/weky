@@ -71,6 +71,7 @@ const profileSchema = mongoose.Schema({
     inWhatSpaceShip: { type: String, default: null },
 
     stamina: { type: Number, default: 100 },
+    totalMn: { type: Number, default: 0 },
   }
 })
 module.exports = mongoose.model('rpg', profileSchema)
