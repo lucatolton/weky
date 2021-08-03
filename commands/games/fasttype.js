@@ -6,6 +6,7 @@ const config = require('../../util/config.json');
 
 module.exports.run = async (client, message, args, utils, data) => {
   const { FastType } = require('weky')
+  const txtgen = require('txtgen')
 
   await FastType({
     message: message,
@@ -15,7 +16,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         color: '#7289da',
         timestamp: true
     },
-    sentence: 'This is a sentence!',
+    sentence: txtgen.sentence(),
     winMessage: 'GG, you have a wpm of **{{wpm}}** and You made it in **{{time}}**.',
     loseMessage: 'Better luck next time!',
     cancelMessage: 'You ended the game!',

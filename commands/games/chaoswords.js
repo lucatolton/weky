@@ -6,6 +6,10 @@ const config = require('../../util/config.json');
 
 module.exports.run = async (client, message, args, utils, data) => {
   const { ChaosWords } = require('weky')
+
+  var randomWords = require('random-words');
+  const words = randomWords(5) //generating 2 words
+
   await ChaosWords({
     message: message,
     embed: {
@@ -23,7 +27,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     wrongWordMessage: 'Wrong Guess! You have **{{remaining_tries}}** tries left.',
     correctWordMessage: 'GG, **{{word}}** was correct! You have to find **{{remaining}}** more word(s).',
     time: 60000,
-    words: ['hello', 'these', 'are', 'words'],
+    words: words,
     charGenerated: 17,
     maxTries: 10,
     buttonText: 'Cancel',
