@@ -220,38 +220,36 @@ module.exports = {
 		}
 	},
 	async user(id, message) {
-		const data = await rpgSchema.findOne({ id: id })
+		await rpgSchema.findOne({ id: id }).lean().exec().then(async (data) => {
 
-		if (!data || typeof data == null) return this.addUser(id, message)
-		try {
-			const hero_moon_1 = data.hero_moon_1;
-			const hero_moon_2 = data.hero_moon_2;
-			const inventory = data.inventory;
-			const hero = data.hero;
-			const stats = data.stats;
-			const db = data;
-			const ss = dataShips;
-			const equipedHero = data.hero.find((e) => e.heroEquiped === true)
+			if (!data || typeof data == null) { return this.addUser(id, message)} else {
+				const hero_moon_1 = data.hero_moon_1;
+				const hero_moon_2 = data.hero_moon_2;
+				const inventory = data.inventory;
+				const hero = data.hero;
+				const stats = data.stats;
+				const db = data;
+				const ss = dataShips;
+				const equipedHero = data.hero.find((e) => e.heroEquiped === true)
 
-			return {
-				id,
-				hero_moon_1,
-				hero_moon_2,
-				inventory,
-				hero,
-				stats,
-				db,
-				ss,
-				equipedHero,
-			};
-		} catch (e) {
-			return
-		}
-	},
-	async modify(id, path, value, method, message) {
+				return {
+					id,
+					hero_moon_1,
+					hero_moon_2,
+					inventory,
+					hero,
+					stats,
+					db,
+					ss,
+					equipedHero,
+				};
+			}
+		})
+		},
+			async modify(id, path, value, method, message) {
 
-		const data = await rpgSchema.findOne({ id: id })
-		if (!data || typeof data == null) return this.addUser(id, message)
+				const data = await rpgSchema.findOne({ id: id })
+		if(!data || typeof data == null) return this.addUser(id, message)
 		this.checkForBreaking(id, message)
 		if (method == '+=') {
 			data[path] += value
