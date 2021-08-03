@@ -14,9 +14,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 			if (!data || typeof data == null) {
 				return data.rpg.addUser(message.author.id, message)
 			} else {
-				let userx = data.rpg.user(message.author.id, message)
-
-				let equipedHero = userx.equipedHero.heroName
+				let equipedHero = data.hero.find((e) => e.heroEquiped === true)
 				let embed = new Discord.MessageEmbed()
 					.setAuthor(message.author.tag, message.author.displayAvatarURL())
 					.addField('In-Battle Stats',
@@ -27,7 +25,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 					.addField('General',
 						`\`-\` Registred at <t:${Math.round(data.user.registeredAt / 1000)}:R>.` +
 						`\`-\` In <t:${dat.stats.isInSpaceShip ? '`' + dat.stats.inWhatSpaceShip + '`' : 'no spaceship'}.` +
-						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero)).emoji + ' ' + equipedHero}**.` +
+						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.name)).emoji + ' ' + equipedHero.name}**.` +
 						`\`-\` Planet **x${map.find((u) => u.planet.includes(data.stats.planet)).emoji + ' ' + data.stats.planet}**.` +
 						`\`-\` Total Planets **x${data.stats.planetsUnlocked.length}**.` +
 						`\`-\` Total Heroes **x${data.stats.hero.sort((a) => a.heroUnlocked == true).length}**.`, true)
