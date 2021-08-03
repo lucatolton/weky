@@ -4,6 +4,7 @@ mongoose.set('useFindAndModify', false);
 const usersDB = require('../schemas/userDB');
 const guildsDB = require('../schemas/Guild');
 const rpgSchema = require('../schemas/rpg');
+const ssSchema = require('../schemas/spaceship');
 
 module.exports = {
 	/**
@@ -213,9 +214,7 @@ module.exports = {
 	async addUser(id, message) {
 		if (!message) return;
 		let data = await rpgSchema.findOne({ id: id })
-		if (data) {
-			return;
-		} else {
+		if (!data) {
 			data = new rpgSchema({ id: id }).save()
 			message.channel.send('Heyo ' + message.author.tag + ', destiny here. I\'ve choosed you to be my hero. I will give you the identity of Dante. Goodluck in battles!')
 		}
@@ -231,6 +230,7 @@ module.exports = {
 			const hero = data.hero;
 			const stats = data.stats;
 			const db = data;
+			const ss = dataShips;
 			const equipedHero = data.hero.find((e) => e.heroEquiped === true)
 
 			return {
@@ -241,6 +241,7 @@ module.exports = {
 				hero,
 				stats,
 				db,
+				ss,
 				equipedHero,
 			};
 		} catch (e) {
