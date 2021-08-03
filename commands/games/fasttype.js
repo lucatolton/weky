@@ -6,10 +6,11 @@ const config = require('../../util/config.json');
 
 module.exports.run = async (client, message, args, utils, data) => {
   const { FastType } = require('weky')
+
   await FastType({
     message: message,
     embed: {
-        title: 'FastType | Weky Development',
+        title: 'FastType',
         description: 'You have **{{time}}** to type the below sentence.',
         color: '#7289da',
         timestamp: true

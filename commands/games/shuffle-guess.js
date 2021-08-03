@@ -29,7 +29,7 @@ module.exports.help = {
   aliases: ['shuffleguess'],
   name: 'suffle-guess',
   description: 'Shuffle guess game.',
-  usage: config.prefix + '8ball %question%',
+  usage: config.prefix + 'shuffle-guess',
 };
 
 module.exports.config = {
