@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.heroName)).emoji + ' ' + equipedHero.heroName}**.` +
 						`\`-\` Planet **x${map.find((u) => u.planet.includes(dat.stats.planet)).emoji + ' ' + dat.stats.planet}**.` +
 						`\`-\` Total Planets **x${dat.stats.planetsUnlocked.length}**.` +
-						`\`-\` Total Heroes **x${dat.stats.hero.sort((a) => a.heroUnlocked == true).length}**.`, true)
+						`\`-\` Total Heroes **x${dat.hero.sort((a) => a.heroUnlocked == true).length}**.`, true)
 				message.reply(embed)
 			}
 		})
