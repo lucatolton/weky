@@ -4,8 +4,8 @@ const Discord = require('discord.js');
 const config = require('../../util/config.json');
 const rpgdata = require('../../data/rpg-data')
 const map = require('../../data/map')
-const rpgSchema = require('../schemas/rpg');
-const ssSchema = require('../schemas/spaceship');
+const rpgSchema = require('../../schemas/rpg');
+const ssSchema = require('../../schemas/spaceship');
 
 module.exports.run = async (client, message, args, utils, data) => {
 
