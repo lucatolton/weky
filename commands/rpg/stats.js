@@ -7,6 +7,8 @@ const map = require('../../data/map')
 
 module.exports.run = async (client, message, args, utils, data) => {
 	let userx = await data.rpg.user(message.author.id, message)
+
+	console.log(userx)
 	let equipedHero = userx.equipedHero.heroName
 	let embed = new Discord.MessageEmbed()
 		.setAuthor(message.author.tag, message.author.displayAvatarURL())
