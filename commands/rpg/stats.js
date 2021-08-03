@@ -6,7 +6,7 @@ const rpgdata = require('../../data/rpg-data')
 const map = require('../../data/map')
 
 module.exports.run = async (client, message, args, utils, data) => {
-	let userx = await data.rpg.user(message.author.id, message)
+	let userx = data.rpg.user(message.author.id, message)
 
 	console.log(userx)
 	let equipedHero = userx.equipedHero.heroName
