@@ -273,7 +273,7 @@ module.exports.calculatePercentage = async function (num, perc) {
 	return (num * perc) / 100
 }
 
-module.exports.displayProgressBar() = function (progress) {
+module.exports.displayProgressBar = function (progress) {
     if (progress < 10) { return "<:bar1Empty:872078474708414464><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
     else if (progress < 20) { return "<:bar1Half:872080754513944587><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
     else if (progress < 40) { return "<:bar1Full1:872080754220367912><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
