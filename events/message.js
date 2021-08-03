@@ -87,7 +87,7 @@ if(data.guild.chatbot_enabled){
 			const m = new Discord.MessageEmbed()
 				.setTitle('Hi, I\'m Weky !')
 				.setDescription('A rpg bot on Discord !')
-				.addField('My prefix is `' + prefix + '`!')
+				.setDescription('My prefix is `' + prefix + '`!')
 				.addField('\u200b', '[Support server](https://discord.gg/Sr2U5WuaSN) | [Bot invite](https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=261188086870&scope=applications.commands%20bot)')
 				.setColor('RANDOM');
 			message.channel.send(m);
