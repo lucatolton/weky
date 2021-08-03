@@ -220,10 +220,11 @@ module.exports = {
 		}
 	},
 	async user(id, message) {
-		require('../schemas/rpg').findOne({id:message.author.id}, async (err, data) => {
+		require('../schemas/rpg').findOne({ id: id }, async (err, data) => {
+			console.log(data, id)
 			await ssSchema.findOne({ id: id }).lean().exec().then(async (dataShips) => {
-				if (!data || typeof data == null) { 
-					return this.addUser(id, message) 
+				if (!data || typeof data == null) {
+					return this.addUser(id, message)
 				} else {
 					const hero_moon_1 = data.hero_moon_1;
 					const hero_moon_2 = data.hero_moon_2;
