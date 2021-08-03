@@ -15,12 +15,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 				return dat.rpg.addUser(message.author.id, message)
 			} else {
 				let equipedHero = dat.hero.find((e) => e.heroEquiped === true)
-				console.log(equipedHero)
-				console.log(equipedHero.name)
-				console.log(rpgdata.hero.find((u) => u.name.includes(equipedHero.name)))
-
-				console.log(rpgdata.hero.find((u) => u.name.includes(equipedHero.name)).emoji)
-				let embed = new Discord.MessageEmbed()
+	let embed = new Discord.MessageEmbed()
 					.setAuthor(message.author.tag, message.author.displayAvatarURL())
 					.addField('In-Battle Stats',
 						`\`-\` Died **x${dat.stats.diedCounter}** times.` +
@@ -30,7 +25,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 					.addField('General',
 						`\`-\` Registred at <t:${Math.round(data.user.registeredAt / 1000)}:R>.` +
 						`\`-\` In <t:${dat.stats.isInSpaceShip ? '`' + dat.stats.inWhatSpaceShip + '`' : 'no spaceship'}.` +
-						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.name)).emoji + ' ' + equipedHero.name}**.` +
+						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.heroName)).emoji + ' ' + equipedHero.heroName}**.` +
 						`\`-\` Planet **x${map.find((u) => u.planet.includes(dat.stats.planet)).emoji + ' ' + dat.stats.planet}**.` +
 						`\`-\` Total Planets **x${dat.stats.planetsUnlocked.length}**.` +
 						`\`-\` Total Heroes **x${dat.stats.hero.sort((a) => a.heroUnlocked == true).length}**.`, true)
