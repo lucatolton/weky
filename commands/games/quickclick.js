@@ -4,22 +4,22 @@ const config = require('../../util/config.json');
 
 module.exports.run = async (client, message, args, utils, data) => {
     const { QuickClick } = require('weky');
+
+    let em = ['872069400679837726', '872069438210465882', '872068688386347048']
     await QuickClick({
         message: message,
         embed: {
-            title: 'Quick Click | Weky Development',
+            title: 'Quick Click',
             color: '#7289da',
             timestamp: true,
         },
         time: 60000,
-        waitMessage: 'The buttons may appear anytime now!',
-        startMessage:
-            'First person to press the correct button will win. You have **{{time}}**!',
-        winMessage: 'GG, <@{{winner}}> pressed the button in **{{time}} seconds**.',
-        loseMessage: 'No one pressed the button in time. So, I dropped the game!',
-        emoji: '👆',
-        ongoingMessage:
-            "A game is already runnning in <#{{channel}}>. You can't start a new one!",
+        waitMessage: 'The buttons may appear anytime!',
+        startMessage: 'First person to press the correct button will win. You have `{{time}}`, go!',
+        winMessage: '<@{{winner}}> pressed the button in `{{time}}s`.',
+        loseMessage: 'Who the hecc ran the game and forgot to play.. shame! :rolling_eyes:',
+        emoji: em[Math.floor(Math.random() * em.length)],
+        ongoingMessage: "A game is already runnning in <#{{channel}}> lmfao chill",
     });
 };
 

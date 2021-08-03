@@ -7,12 +7,12 @@ module.exports.run = async (client, message, args, utils, data) => {
     await WillYouPressTheButton({
         message: message,
         embed: {
-            title: 'Will you press the button? | Weky Development',
-            description: '```{{statement1}}```\n**but**\n\n```{{statement2}}```',
-            color: '#7289da',
+            title: 'Will you press the button? ',
+            description: '```{{statement1}}```\n**but...**\n\n```{{statement2}}```',
+            color: 'RANDOM',
             timestamp: true,
         },
-        button: { yes: 'Yes', no: 'No' },
+        button: { yes: 'Yet', no: 'Yes\'nt' },
         thinkMessage: 'I am thinking',
         othersMessage: 'Only <@{{author}}> can use the buttons!',
     });

@@ -10,18 +10,16 @@ module.exports.run = async (client, message, args, utils, data) => {
   await ShuffleGuess({
     message: message,
     embed: {
-      title: 'Shuffle Guess | Weky Development',
-      color: '#7289da',
+      title: 'Shuffle Gues',
+      color: 'RANDOM',
       timestamp: true,
     },
     word: word,
     button: { cancel: 'Cancel', reshuffle: 'Reshuffle' },
-    startMessage:
-      'I shuffled a word it is **`{{word}}`**. You have **{{time}}** to find the correct word!',
-    winMessage:
-      'GG, It was **{{word}}**! You gave the correct answer in **{{time}}.**',
-    loseMessage: 'Better luck next time! The correct answer was **{{answer}}**.',
-    incorrectMessage: "No {{author}}! The word isn't `{{answer}}`",
+    startMessage:'I shuffled a word it is **`{{word}}`**. You have `{{time}}` to find the correct word!',
+    winMessage:'GG, It was **`{{word}}`**! It took you `{{time}}`.',
+    loseMessage: 'The correct answer was `{{answer}}`. Ya lost, rip..',
+    incorrectMessage: "The word is not `{{answer}}` xd",
     othersMessage: 'Only <@{{author}}> can use the buttons!',
     time: 60000,
   });
