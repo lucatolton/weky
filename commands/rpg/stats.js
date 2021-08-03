@@ -18,17 +18,17 @@ module.exports.run = async (client, message, args, utils, data) => {
 	let embed = new Discord.MessageEmbed()
 					.setAuthor(message.author.tag, message.author.displayAvatarURL())
 					.addField('In-Battle Stats',
-						`\`-\` Died **x${dat.stats.diedCounter}** times.` +
-						`\`-\` Killed **x${dat.stats.mobsKilled}** mobs.` +
-						`\`-\` Battled **x${dat.stats.diedCounter + dat.stats.mobsKilled}** times.` +
-						`\`-\` Total MN **x${dat.stats.totalMn.toLocaleString('en')}**.`, true)
+						`\`-\` Died **x${dat.stats.diedCounter}** times.\n` +
+						`\`-\` Killed **x${dat.stats.mobsKilled}** mobs.\n` +
+						`\`-\` Battled **x${dat.stats.diedCounter + dat.stats.mobsKilled}** times.\n` +
+						`\`-\` Total MN **x${dat.stats.totalMn.toLocaleString('en')}**.\n`, true)
 					.addField('General',
-						`\`-\` Registred at <t:${Math.round(data.user.registeredAt / 1000)}:R>.` +
-						`\`-\` In <t:${dat.stats.isInSpaceShip ? '`' + dat.stats.inWhatSpaceShip + '`' : 'no spaceship'}.` +
-						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.heroName)).emoji + ' ' + equipedHero.heroName}**.` +
-						`\`-\` Planet **x${map.find((u) => u.planet.includes(dat.stats.planet)).emoji + ' ' + dat.stats.planet}**.` +
-						`\`-\` Total Planets **x${dat.stats.planetsUnlocked.length}**.` +
-						`\`-\` Total Heroes **x${dat.hero.sort((a) => a.heroUnlocked == true).length}**.`, true)
+						`\`-\` Registred at <t:${Math.round(data.user.registeredAt / 1000)}:R>.\n` +
+						`\`-\` In <t:${dat.stats.isInSpaceShip ? '`' + dat.stats.inWhatSpaceShip + '`' : 'no spaceship'}.\n` +
+						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.heroName)).emoji + ' ' + equipedHero.heroName}**.\n` +
+						`\`-\` Planet **x${map.find((u) => u.planet.includes(dat.stats.planet)).emoji + ' ' + dat.stats.planet}**.\n` +
+						`\`-\` Total Planets **x${dat.stats.planetsUnlocked.length}**.\n` +
+						`\`-\` Total Heroes **x${dat.hero.sort((a) => a.heroUnlocked == true).length}**.\n`, true)
 				message.reply(embed)
 			}
 		})
