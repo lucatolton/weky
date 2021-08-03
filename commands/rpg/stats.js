@@ -10,9 +10,9 @@ const ssSchema = require('../../schemas/spaceship');
 module.exports.run = async (client, message, args, utils, data) => {
 
 	rpgSchema.findOne({ id: message.author.id }, async (err, data) => {
-		await ssSchema.findOne({ id: id }).lean().exec().then(async (dataShips) => {
+		await ssSchema.findOne({ id: message.author.id }).lean().exec().then(async (dataShips) => {
 			if (!data || typeof data == null) {
-				return data.rpg.addUser(id, message)
+				return data.rpg.addUser(message.author.id, message)
 			} else {
 				let userx = data.rpg.user(message.author.id, message)
 
