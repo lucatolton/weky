@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     },
     emojis: {
       empty: '⬛',
-      snakeBody: '872068688386347048',
+      snakeBody: '<a:trollfacegaming:872068688386347048>',
       food: '🚎',
       up: '⬆️',
       right: '⬅️',
