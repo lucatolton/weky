@@ -7,7 +7,6 @@ const ascii = require('ascii-table');
 
 async function startUp(client) {
 
-	
 	const eventtable = new ascii('Event\'s');
 	eventtable.setHeading('Event', 'Load status');
 	const eventFiles = fs.readdirSync('./events/').filter((file) => file.endsWith('.js'));

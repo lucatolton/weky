@@ -55,13 +55,13 @@ module.exports = async (client, message) => {
 		// 			}
 		// 		}
 
-		if (userDB.isAFK) {
+		if (userDB.is_afk) {
 			await client.data.removeAfk(message.author.id);
 			message.channel.send(Discord.Util.removeMentions('Welcome back `' + message.author.username + '`! You are no longer afk.'))
 		}
 
 		message.mentions.users.forEach(async (u) => {
-			if (data.user.isAFK) {
+			if (data.user.is_afk) {
 				message.channel.send(`\`${u.tag}\` is currently afk for: \`${userData.afkReason}\``)
 			}
 		});

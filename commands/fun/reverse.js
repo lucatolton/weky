@@ -3,7 +3,7 @@
             const config = require('../../util/config.json');
             
             module.exports.run = async (client, message, args, utils, data) => {
-                     msg = message.content.split(" ").slice(1).join(" ");
+                     msg = message.content.split(" ").slice(2).join(" ");
     if(!msg){
         return message.channel.send(`You need to gib me a word or more to reverse`)
     }
