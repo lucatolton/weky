@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     const fetch = require('node-fetch')
     const res = await (await (fetch(`https://api.monkedev.com/fun/8ball?key=scNyfoysHunZd79reAL5VEsQV`))).json();
     const b = new Discord.MessageEmbed()
-    .setTitle(`${args.join(' ').slice(0, 210)}\``)
+    .setTitle(`${args.join(' ').slice(0, 210)}`)
     .setDescription(`😶 \`${res.answer}\``)
     message.reply(b)
 };
