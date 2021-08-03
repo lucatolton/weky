@@ -17,6 +17,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 				let equipedHero = dat.hero.find((e) => e.heroEquiped === true)
 	let embed = new Discord.MessageEmbed()
 					.setAuthor(message.author.tag, message.author.displayAvatarURL())
+					.setColor('RANDOM')
 					.addField('In-Battle Stats',
 						`\`-\` Died **x${dat.stats.diedCounter}** times.\n` +
 						`\`-\` Killed **x${dat.stats.mobsKilled}** mobs.\n` +
@@ -24,7 +25,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 						`\`-\` Total MN **x${dat.stats.totalMn.toLocaleString('en')}**.\n`, true)
 					.addField('General',
 						`\`-\` Registred at <t:${Math.round(data.user.registeredAt / 1000)}:R>.\n` +
-						`\`-\` In <t:${dat.stats.isInSpaceShip ? '`' + dat.stats.inWhatSpaceShip + '`' : 'no spaceship'}.\n` +
+						`\`-\` In ${dat.stats.isInSpaceShip ? '`' + dat.stats.inWhatSpaceShip + '`' : 'no spaceship'}.\n` +
 						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.heroName)).emoji + ' ' + equipedHero.heroName}**.\n` +
 						`\`-\` Planet **x${map.find((u) => u.planet.includes(dat.stats.planet)).emoji + ' ' + dat.stats.planet}**.\n` +
 						`\`-\` Total Planets **x${dat.stats.planetsUnlocked.length}**.\n` +
