@@ -5,6 +5,12 @@ const rpgSchema = require("../../schemas/rpg")
 module.exports.run = async (client, message, args, utils, data) => {
     await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 
+        const query = { SpaceShipID: extractedData.stats.inWhatSpaceShip }
+        const d = await ssSchema.findOne(query)
+
+        if (!d) return message.reply('I can\'t find this spaceship!')
+
+
         if (args[0]) {
             message.react('👀')
             d.SpaceShipMessages.push(`${message.author.id}${args.slice(1).join(' ')}`)
@@ -13,11 +19,6 @@ module.exports.run = async (client, message, args, utils, data) => {
 
         } else {
             if (extractedData.stats.isInSpaceShip == false) return message.reply('You are not in any spaceship!')
-            const query = { SpaceShipID: extractedData.stats.inWhatSpaceShip }
-            const d = await ssSchema.findOne(query)
-
-            if (!d) return message.reply('I can\'t find this spaceship!')
-
             message.channel.send(
                 new Discord.MessageEmbed()
                     .setDescription(d.SpaceShipMessages.map((msg) => `**${client.users.cache.get(msg.slice(0, 17)).tag}**: ${msg.slice(17)}`).join('\n') || 'Empty :/')
