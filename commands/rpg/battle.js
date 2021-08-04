@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 		const { registerFont, createCanvas } = require('canvas')
 		const Canvas = require('canvas')
 		const Hero = items.hero.find((val) => val.name.includes(equipedHero.heroName));
-		const mobFinder = require('../../data/map').find((val) => val.planet === member.stats.planet)
+		const mobFinder = require('../../data/map').find((val) => val.planet === extractedData.stats.planet)
 		const Mob = mobFinder.mobs[Math.floor(Math.random() * mobFinder.mobs.length)]
 		const where = 'pixelated.ttf'
 		registerFont(where, { family: 'Comic Sans' })
