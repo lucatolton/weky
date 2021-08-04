@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 			} else {
 				let equipedHero = dat.hero.find((e) => e.heroEquiped === true)
 				let staminaPercent = await utils.calculatePercentage(dat.stats.stamina / dat.stats.maxStamina)
-				
+
 				let embed = new Discord.MessageEmbed()
 					.setAuthor(message.author.tag, message.author.displayAvatarURL())
 					.setColor('RANDOM')
@@ -25,8 +25,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 						`\`-\` Killed **x${dat.stats.mobsKilled}** mobs.\n` +
 						`\`-\` Battled **x${dat.stats.diedCounter + dat.stats.mobsKilled}** times.\n` +
 						`\`-\` Total MN **x${dat.stats.totalMn.toLocaleString()}**.\n`, true)
-					.addField('Meters',
-						`\`Stamina\`: ${utils.displayProgressBar(staminaPercent)}.\n`, true)
+					.addField('Meters', `\`Stamina\`: ${utils.displayProgressBar(staminaPercent)}\n`, true)
 					.addField('General',
 						`\`-\` Registred <t:${Math.round(data.user.registeredAt / 1000)}:R>.\n` +
 						`\`-\` ${dat.stats.isInSpaceShip ? 'In `' + dat.stats.inWhatSpaceShip + '`' : 'Not in a spaceship'}.\n` +
