@@ -8,16 +8,22 @@ module.exports.run = async (client, message, args, utils, data) => {
   const prefix = config.prefix
   const helps = [
     {
-      emoji: '😂',
-      name: 'Fun',
-      description: 'Get commands of the category Fun!',
-      id: 'fun'
-    },
-    {
       emoji: '854244532039450675',
       name: 'RPG',
       description: 'Get commands of the category RPG!',
       id: 'rpg'
+    },
+    {
+      emoji: '859790691579723806',
+      name: 'Currency',
+      description: 'Get commands of the category Currency!',
+      id: 'currency'
+    },
+    {
+      emoji: '😂',
+      name: 'Fun',
+      description: 'Get commands of the category Fun!',
+      id: 'fun'
     },
     {
       emoji: '⚒️',

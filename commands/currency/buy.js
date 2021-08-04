@@ -5,8 +5,7 @@ const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
 	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
-		const equipedHero = extractedData.hero.find((e) => e.heroEquiped === true)
-
+        if (!extractedData || typeof extractedData == null) return client.data.rpg.addUser(message.author.id, message)
 
     if (!args[0]) return utils.errorEmbed(message, 'No power up specified!')
     const wiki = require('../../data/rpg-data').powerups.find((v) => v.aliases.includes(args[0]))
