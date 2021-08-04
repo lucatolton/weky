@@ -1,44 +1,101 @@
 
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { MessageMenu, MessageMenuOption } = require('discord-buttons');
 const config = require('../../util/config.json');
 const fs = require('fs');
 
-
-
 module.exports.run = async (client, message, args, utils, data) => {
-  const prefix = 'wek ';
-  if (!args[0]) {
-    const a = new MessageEmbed()
-      .setTitle('Hello!')
-      .setDescription('I\'m Weky!\n[Invite Me](https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=1609952759&scope=applications.commands%20bot) | [Support Server](https://discord.gg/Sr2U5WuaSN) | [Premium](https://www.patreon.com/weky)')
-      .addField("😂 Fun", `\`${prefix}help fun\``, true)
-      .addField("<:orix_tecRPG:854244532039450675> RPG", `\`${prefix}help rpg\``, true)
-      .addField(utils.emojis.aero + ' Currency', `\`${prefix}help currency\``, true)
-      .addField("⚒️ Moderation", `\`${prefix}help moderation\``, true)
-      .addField("🔩 Utility", `\`${prefix}help utility\``, true)
-      .addField("🎮 Games", `\`${prefix}help games\``, true)
-      .addField("📷 Image", `\`${prefix}help image\``, true)
-      .addField('<a:disk:836284406372499557> Soundboard', `\`${prefix}help soundboard\``, true)
-      .addField('<:click:847534956619104307> Button role', `\`${prefix}help br\``, true)
-      // .addField('<:sussyBaka:852084751388377089> Among Us', `\`${prefix}help amogus\``, true)
-      // .addField('<:blurpletada:856098746790314014> Giveaway', `\`${prefix}help giveaway\``, true)
-      .setFooter('Check out our Discord Server:  https://discord.gg/pH6UN3sY')
-      .setThumbnail(client.user.avatarURL({ type: 'png' }))
-      .setColor('RANDOM');
-    message.channel.send(a);
-  }
-  else {
-    const categoryArray = fs.readdirSync('./commands/');
-    const category = categoryArray.filter(x => x === args[0].toLowerCase()).join('');
-    if (category) {
-      const cmds = client.commands.filter(x => x.config.category.toLowerCase() === category.toLowerCase()).map(cmd => `\`${cmd.help.name}\``).join('︱');
+  const prefix = config.prefix
+  const helps = [
+    {
+      emoji: '854244532039450675',
+      name: 'RPG',
+      description: 'Get commands of the category RPG!',
+      id: 'rpg'
+    },
+    {
+      emoji: '859790691579723806',
+      name: 'Currency',
+      description: 'Get commands of the category Currency!',
+      id: 'currency'
+    },
+    {
+      emoji: '😂',
+      name: 'Fun',
+      description: 'Get commands of the category Fun!',
+      id: 'fun'
+    },
+    {
+      emoji: '⚒️',
+      name: 'Moderation',
+      description: 'Get commands of the category Moderation!',
+      id: 'moderation'
+    },
+    {
+      emoji: '🔩',
+      name: 'Utility',
+      description: 'Get commands of the category Utility!',
+      id: 'utility'
+    },
+    {
+      emoji: '🎮',
+      name: 'Games',
+      description: 'Get commands of the category Games!',
+      id: 'games'
+    },
+    {
+      emoji: '📷',
+      name: 'Image',
+      description: 'Get commands of the category Image!',
+      id: 'image'
+    },
+    {
+      emoji: '836284406372499557',
+      name: 'Soundboard',
+      description: 'Get commands of the category Soundboard!',
+      id: 'soundboard'
+    },
+    {
+      emoji: '847534956619104307',
+      name: 'Button Roles',
+      description: 'Get commands of the category Br!',
+      id: 'br'
+    },
+  ]
+  const theArrayThing = new MessageMenu()
+    .setID('help')
+    .setMaxValues(1)
+    .setMinValues(1)
+    .setPlaceholder('Click me!')
+
+  helps.forEach((thing) => {
+    theArrayThing.addOption(new MessageMenuOption()
+      .setLabel(thing.name)
+      .setValue(thing.id)
+      .setDescription(thing.description)
+      .setEmoji(thing.emoji)
+      .setDefault())
+  })
+  message.channel.send({ files: ['https://cdn.discordapp.com/attachments/863353802458660875/872444919002828890/Untitled_32.png'], component: theArrayThing }).then(async (msg) => {
+
+    const collector = await msg.createMenuCollector(c => c)
+
+    collector.on('collect', async menu => {
+
+      const categoryArray = fs.readdirSync('./commands/');
+      const category = categoryArray.filter(x => x === menu.values[0]).join('');
+
+      const cmds = client.commands.filter(x => x.config.category.toLowerCase() === category.toLowerCase()).map(cmd => `\`${cmd.help.name}\``).join(',');
       const cmdsEmbed = new MessageEmbed()
-        .setTitle(`${category.slice(0, 1).toUpperCase()}${category.slice(1)} Commands`)
-        .setDescription(cmds)
-        .setColor('RANDOM')
-      return message.channel.send(cmdsEmbed);
-    }
-    else if (client.commands.has(args[0])) {
+        .setTitle(`${category.slice(0, 1).toUpperCase()}${category.slice(1)}`)
+        .setDescription('Also check out our [Discord Server](https://discord.gg/pH6UN3sY) and try [Nuggies](https://top.gg/bot/779741162465525790) :)\n\n' + cmds)
+        .setThumbnail(client.user.avatarURL({ type: 'png' }))
+        .setColor('RANDOM');
+      return menu.reply.send({ embed: cmdsEmbed, ephemeral: true});
+    })
+  })
+  if (args[0]) {
+    if (client.commands.has(args[0])) {
       const cmd = client.commands.get(args[0]);
 
       return message.channel.send('```md\n' +
@@ -47,8 +104,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         '# Aliases\n' + '> ' + cmd.help.aliases.join('︱') + '\n' +
         '# Category\n' + '> ' + cmd.config.category + '\n' +
         '# Description\n' + '> ' + cmd.config.disable + '\n' + '\n```');
-    }
-    else {
+    } else {
       return message.reply('I can\'t find that command!');
     }
   }
