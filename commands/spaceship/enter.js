@@ -4,7 +4,7 @@ const ssSchema = require('../../schemas/spaceship');
 const rpgSchema = require("../../schemas/rpg")
 module.exports.run = async (client, message, args, utils, data) => {
     if (!args[0]) return message.reply('Please specify the spaceship id!')
-    await rpgSchema.findOne({ id: message.author.id }).lean().exec().then((extractedData) => {
+    await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
         if (extractedData.stats.isInSpaceShip == true) return message.reply('You are already in a spaceship!')
         const query = { SpaceShipID: args[0].replace('#', '') }
         const d = await ssSchema.findOne(query)
