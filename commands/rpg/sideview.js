@@ -8,9 +8,10 @@ const rpgSchema = require('../../schemas/rpg');
 const ssSchema = require('../../schemas/spaceship');
 
 module.exports.run = async (client, message, args, utils, data) => {
-
+    
 	rpgSchema.findOne({ id: message.author.id }, async (err, dat) => {
-		await ssSchema.findOne({ id: message.author.id }).lean().exec().then(async (dataShips) => {
+			const dataShips = await ssSchema.findOne({ SpaceShipID: dat.stats.inWhatSpaceShip })
+
 			if (!dat || typeof dat == null) {
 				return dat.rpg.addUser(message.author.id, message)
 			} else {
@@ -28,14 +29,13 @@ module.exports.run = async (client, message, args, utils, data) => {
 					.addField('Meters', `\`Stamina\`: ${utils.displayProgressBar(staminaPercent)}\n`, true)
 					.addField('General',
 						`\`-\` Registred <t:${Math.round(data.user.registeredAt / 1000)}:R>.\n` +
-						`\`-\` ${dat.stats.isInSpaceShip ? 'In `' + dat.stats.inWhatSpaceShip + '`' : 'Not in a spaceship'}.\n` +
+						`\`-\` ${dat.stats.isInSpaceShip ? 'In `' + dataShips.SpaceShipName + '`' : 'Not in a spaceship'}.\n` +
 						`\`-\` Hero **${rpgdata.hero.find((u) => u.name.includes(equipedHero.heroName)).emoji + ' ' + equipedHero.heroName}**.\n` +
 						`\`-\` Planet **${map.find((u) => u.planet.includes(dat.stats.planet)).emoji + ' ' + dat.stats.planet}**.\n` +
 						`\`-\` Total Planets **x${dat.stats.planetsUnlocked.length}**.\n` +
 						`\`-\` Total Heroes **x${dat.hero.sort((a) => a.heroUnlocked == true).length}**.\n`, true)
 				message.reply(embed)
 			}
-		})
 	})
 };
 module.exports.help = {

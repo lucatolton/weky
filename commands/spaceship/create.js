@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         d.SpaceShipPilots[message.author.id] = Date.now()
         await ssSchema.findOneAndUpdate({ SpaceShipCaptain: message.author.id }, d, { upset: true })
 
-        message.reply('Success! Check it within\' `wek spaceship`!')
+        message.reply('Success! Check it with `wek spaceship` and customize it with `wek set`!')
     })
 };
 
