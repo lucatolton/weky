@@ -1,5 +1,5 @@
 
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
 const { MessageMenu, MessageMenuOption } = require('discord-buttons');
 const config = require('../../util/config.json');
 const fs = require('fs');
@@ -71,7 +71,7 @@ module.exports.run = async (client, message, args, utils, data) => {
       .setDefault())
   })
 
-  message.channel.send(new Discord.MessageAttachment('https://cdn.discordapp.com/attachments/796339751044382720/872215137954697288/Untitled_11.jpg'), { components: theArrayThing }).then(async (msg) => {
+  message.channel.send(new MessageAttachment('https://cdn.discordapp.com/attachments/796339751044382720/872215137954697288/Untitled_11.jpg'), { components: theArrayThing }).then(async (msg) => {
 
     const collector = await msg.createMenuCollector(c => c)
 
