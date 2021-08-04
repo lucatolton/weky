@@ -10,22 +10,22 @@ module.exports.run = async (client, message, args, utils, data) => {
         const d = await ssSchema.findOne(query)
 
         if (!d) return message.reply('I can\'t find this spaceship!')
-        
+
         if (d.SpaceShipPrivate === true) {
             d.SpaceShipMessages.push(`${message.author.id}**${message.author.tag} (${message.author.id})** requested to join! Use \`wek approve/deny [Tag/Username/Id]\`!`)
 
             await ssSchema.findOneAndUpdate(query, d, { upset: true })
 
             message.channel.send('Successfully **applied** to enter in `' + d.SpaceShipName + '`! Please wait until a co-pilot or the captain accept/decline!')
+        } else {
+
+            message.channel.send('Successfully entered in `' + d.SpaceShipName + '`! Have fun!')
+            await data.rpg.modifyStats(message.author.id, 'isInSpaceShip', true, '=', message)
+            await data.rpg.modifyStats(message.author.id, 'inWhatSpaceShip', id, '=', message)
+
+            d.SpaceShipPilots[message.author.id] = Date.now()
+            await ssSchema.findOneAndUpdate(query, d, { upset: true })
         }
-
-        message.channel.send('Successfully entered in `' + d.SpaceShipName + '`! Have fun!')
-        await data.rpg.modifyStats(message.author.id, 'isInSpaceShip', true, '=', message)
-        await data.rpg.modifyStats(message.author.id, 'inWhatSpaceShip', id, '=', message)
-
-        d.SpaceShipPilots[message.author.id] = Date.now()
-        await ssSchema.findOneAndUpdate(query, d, { upset: true })
-
     })
 };
 
