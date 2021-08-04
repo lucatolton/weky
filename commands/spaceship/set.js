@@ -23,7 +23,7 @@ module.exports.run = async (client, message, args, utils, data) => {
             break;
         case 'name':
 
-            const name = args[1]
+            const name = args.slice(1).join(' ')
             if (!name) return message.reply('You must provide an name!')
             dataShips.SpaceShipName = name
             dataShips.save()
