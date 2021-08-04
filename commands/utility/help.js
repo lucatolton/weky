@@ -77,7 +77,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     collector.on('collect', async menu => {
 
       const categoryArray = fs.readdirSync('./commands/');
-      const category = categoryArray.filter(x => x === menu.values[0].join(''));
+      const category = categoryArray.filter(x => x === menu.values[0]).join('');
 
       const cmds = client.commands.filter(x => x.config.category.toLowerCase() === category.toLowerCase()).map(cmd => `\`${cmd.help.name}\``).join(',');
       const cmdsEmbed = new MessageEmbed()
@@ -91,20 +91,21 @@ module.exports.run = async (client, message, args, utils, data) => {
       return message.channel.send(cmdsEmbed);
     })
   })
+  if (args[0]) {
+    if (client.commands.has(args[0])) {
+      const cmd = client.commands.get(args[0]);
 
-  if (args[0] && client.commands.has(args[0])) {
-    const cmd = client.commands.get(args[0]);
-
-    return message.channel.send('```md\n' +
-      '# Description\n' + '> ' + cmd.help.description + '\n' +
-      '# Usage\n' + '> ' + cmd.help.usage + '\n' +
-      '# Aliases\n' + '> ' + cmd.help.aliases.join('︱') + '\n' +
-      '# Category\n' + '> ' + cmd.config.category + '\n' +
-      '# Description\n' + '> ' + cmd.config.disable + '\n' + '\n```');
-  } else {
-    return message.reply('I can\'t find that command!');
+      return message.channel.send('```md\n' +
+        '# Description\n' + '> ' + cmd.help.description + '\n' +
+        '# Usage\n' + '> ' + cmd.help.usage + '\n' +
+        '# Aliases\n' + '> ' + cmd.help.aliases.join('︱') + '\n' +
+        '# Category\n' + '> ' + cmd.config.category + '\n' +
+        '# Description\n' + '> ' + cmd.config.disable + '\n' + '\n```');
+    } else {
+      return message.reply('I can\'t find that command!');
+    }
   }
-  };
+};
 module.exports.help = {
   aliases: ['about'],
   name: 'help',
