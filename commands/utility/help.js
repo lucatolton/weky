@@ -81,14 +81,11 @@ module.exports.run = async (client, message, args, utils, data) => {
 
       const cmds = client.commands.filter(x => x.config.category.toLowerCase() === category.toLowerCase()).map(cmd => `\`${cmd.help.name}\``).join(',');
       const cmdsEmbed = new MessageEmbed()
-        .addField(
-          `${category.slice(0, 1).toUpperCase()}${category.slice(1)}`,
-          'Also check out our [Discord Server](https://discord.gg/pH6UN3sY) and try [Nuggies](https://top.gg/bot/779741162465525790) :)'
-        )
-        .setDescription(cmds)
+        .setTitle(`${category.slice(0, 1).toUpperCase()}${category.slice(1)}`)
+        .setDescription('Also check out our [Discord Server](https://discord.gg/pH6UN3sY) and try [Nuggies](https://top.gg/bot/779741162465525790) :)\n\n' + cmds)
         .setThumbnail(client.user.avatarURL({ type: 'png' }))
         .setColor('RANDOM');
-      return message.channel.send(cmdsEmbed);
+      return menu.reply.send({ embed: cmdsEmbed, ephemeral: true});
     })
   })
   if (args[0]) {
