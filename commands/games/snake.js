@@ -1,6 +1,5 @@
 
 
-const Discord = require('discord.js');
 const config = require('../../util/config.json');
 
 module.exports.run = async (client, message, args, utils, data) => {
@@ -8,15 +7,15 @@ module.exports.run = async (client, message, args, utils, data) => {
   await Snake({
     message: message,
     embed: {
-      title: 'Snake | Weky Development',
+      title: 'Snake',
       description: 'GG, you scored **{{score}}** points!',
-      color: '#7289da',
+      color: 'RANDOM',
       timestamp: true,
     },
     emojis: {
       empty: '⬛',
-      snakeBody: '🟩',
-      food: '🍎',
+      snakeBody: '<a:trollfacegaming:872068688386347048>',
+      food: '🚎',
       up: '⬆️',
       right: '⬅️',
       down: '⬇️',

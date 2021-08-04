@@ -1,37 +1,40 @@
 
 const Discord = require('discord.js');
 const config = require('../../util/config.json');
+const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
-    var userx = await data.rpg.user(message.author.id, message)
-    let i = 0
-    const coll = client.backpack.get('bp');
+    await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 
-    const disbut = require("discord-buttons")
+        let i = 0
+        const coll = client.backpack.get('bp');
 
-    let select = new disbut.MessageMenu()
-        .setID('inv')
-        .setMaxValues(1)
-        .setMinValues(1)
-        .setPlaceholder('Click here to see your backpack!');
+        const disbut = require("discord-buttons")
 
-    require('../../data/rpg-data').powerups.forEach((e) => {
-        if (userx.db[e.name] > 0) {
-            i++
-            console.log(e.emojiID)
-            select.addOption(new disbut.MessageMenuOption()
-                .setLabel(e.name)
-                .setValue(e.name)
-                .setDescription('You own: ' + userx.db[e.name])
-                .setEmoji(e.emojiID)
-                .setDefault())
-        }
+        let select = new disbut.MessageMenu()
+            .setID('inv')
+            .setMaxValues(1)
+            .setMinValues(1)
+            .setPlaceholder('Click here to see your backpack!');
+
+        require('../../data/rpg-data').powerups.forEach((e) => {
+            if (extractedData[e.name] > 0) {
+                i++
+                console.log(e.emojiID)
+                select.addOption(new disbut.MessageMenuOption()
+                    .setLabel(e.name)
+                    .setValue(e.name)
+                    .setDescription('You own: ' + extractedData[e.name])
+                    .setEmoji(e.emojiID)
+                    .setDefault())
+            }
+        })
+        if (i == 0) return message.channel.send('Empty :(')
+
+        let m = await message.channel.send('\u200b', { component: select })
+
+        await coll.set(m.id, message.author.id);
     })
-    if(i == 0) return message.channel.send('Empty :(')
-    
-    let m = await message.channel.send('\u200b', { component: select })
-
-    await coll.set(m.id, message.author.id);
 };
 module.exports.help = {
     aliases: ['bp'],

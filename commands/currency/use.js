@@ -1,19 +1,19 @@
 
 const Discord = require('discord.js');
 const config = require('../../util/config.json');
+const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
-
-    let userx = await data.rpg.user(message.author.id, message)
+	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 
     if (!args[0]) return utils.errorEmbed(message, 'No power up specified!')
     const wiki = require('../../data/rpg-data').powerups.find((v) => v.aliases.includes(args[0]))
 
     if (!wiki) return utils.errorEmbed(message, 'The specified power up is invalid!')
 
-    if (userx.db[wiki.name] <= 0) return utils.errorEmbed(message, 'The specified power up is not in your backpack!')
+    if (extractedData[wiki.name] <= 0) return utils.errorEmbed(message, 'The specified power up is not in your backpack!')
 
-    if (userx.db.powerups.includes(wiki.powerName)) return utils.errorEmbed(message, 'The specified power up is already used!')
+    if (extractedData.powerups.includes(wiki.powerName)) return utils.errorEmbed(message, 'The specified power up is already used!')
 
     let custom = wiki.emoji + ' **' + wiki.name + '**'
 
@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     data.rpg.modify(message.author.id, wiki.name, 1, '-=', message)
 
     message.channel.send(`**${message.author.username}** used one ${custom}. The durability of it is \`${wiki.durability}%\`.`)
-
+    })
 };
 module.exports.help = {
     aliases: [],

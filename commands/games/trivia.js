@@ -6,14 +6,19 @@ const config = require('../../util/config.json');
 module.exports.run = async (client, message, args, utils, data) => {
   const { Trivia } = require('weky');
 
+  const low = ["easy", "medium", "hard"]
+  var diff = args[0]
+
+  if (!diff || !low.includes(low)) return message.reply('Please choose a difficulty, list: `easy`, `medium`, `hard`')
+
   await Trivia({
     message: message,
     embed: { color: '#7289da', timestamp: true },
-    difficulty: 'hard',
-    thinkMessage: 'I am thinking',
+    difficulty: diff,
+    thinkMessage: 'I am thinking...',
     winMessage:
-      'GG, It was **{{answer}}**. You gave the correct answer in **{{time}}**.',
-    loseMessage: 'Better luck next time! The correct answer was **{{answer}}**.',
+      'GG, It was **{{answer}}**. It took you **{{time}}**.',
+    loseMessage: 'The correct answer was **{{answer}}**...',
     emojis: {
       one: '1️⃣',
       two: '2️⃣',
