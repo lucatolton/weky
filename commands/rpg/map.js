@@ -2,10 +2,12 @@
   
 
 const Discord = require('discord.js');
+const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
-    let userx = await data.rpg.user(message.author.id, message)
-	const db =  userx.db.stats.planet
+	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
+
+	const db =  extractedData.stats.planet
 	const embed1 = new Discord.MessageEmbed()
 	.setAuthor(message.author.tag, message.author.displayAvatarURL())
 	.setImage('https://cdn.discordapp.com/attachments/812590454821355543/854672032994426891/Untitled360_20210616173850.png')
@@ -16,7 +18,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 	.setFooter('The point is in your location | wek select | ©️ Weky RPG')
     if(db === 'Moon') return message.reply(embed1)
     if(db === 'Terra') return message.reply(embed2)
-
+	})
 };
 
 module.exports.help = {
