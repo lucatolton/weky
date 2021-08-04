@@ -5,7 +5,7 @@ const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
     await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
-
+        if (!data || typeof data == null) return client.data.rpg(message.author.id, message)
         let check, returnBold;
         const mobFinder = require('../../data/map').find((val) => val.planet === extractedData.stats.planet)
         const Mob = mobFinder.mobs

@@ -5,7 +5,8 @@ const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
     await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
-
+        if (!data || typeof data == null) return client.data.rpg(message.author.id, message)
+        
         let i = 0
         const coll = client.backpack.get('bp');
 
