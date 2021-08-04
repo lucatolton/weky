@@ -10,49 +10,49 @@ module.exports.run = async (client, message, args, utils, data) => {
     {
       emoji: '😂',
       name: 'Fun',
-      description: 'Get a list of the commands with the category Fun!',
+      description: 'Get commands of the category Fun!',
       id: 'fun'
     },
     {
       emoji: '854244532039450675',
       name: 'RPG',
-      description: 'Get a list of the commands with the category RPG!',
+      description: 'Get commands of the category RPG!',
       id: 'rpg'
     },
     {
       emoji: '⚒️',
       name: 'Moderation',
-      description: 'Get a list of the commands with the category Moderation!',
+      description: 'Get commands of the category Moderation!',
       id: 'moderation'
     },
     {
       emoji: '🔩',
       name: 'Utility',
-      description: 'Get a list of the commands with the category Utility!',
+      description: 'Get commands of the category Utility!',
       id: 'utility'
     },
     {
       emoji: '🎮',
       name: 'Games',
-      description: 'Get a list of the commands with the category Games!',
+      description: 'Get commands of the category Games!',
       id: 'games'
     },
     {
       emoji: '📷',
       name: 'Image',
-      description: 'Get a list of the commands with the category Image!',
+      description: 'Get commands of the category Image!',
       id: 'image'
     },
     {
       emoji: '836284406372499557',
       name: 'Soundboard',
-      description: 'Get a list of the commands with the category Soundboard!',
+      description: 'Get commands of the category Soundboard!',
       id: 'soundboard'
     },
     {
       emoji: '847534956619104307',
       name: 'Button Roles',
-      description: 'Get a list of the commands with the category Br!',
+      description: 'Get commands of the category Br!',
       id: 'br'
     },
   ]
