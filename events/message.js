@@ -134,24 +134,24 @@ if(data.guild.chatbot_enabled){
 		try {
 			await commandFile.run(client, message, args, utils, data);
 
-			// await client.channels.cache.get('835464023163535380').send(new Discord.MessageEmbed()
-			// 	.setColor('RANDOM')
-			// 	.setDescription('```md' +
-			// 		'\n* Command\n> ' + command +
-			// 		'\n* Content\n> ' + message.content +
-			// 		'\n* Guild\n> ' + message.guild.name +
-			// 		'\n* User ID\n> ' + message.author.id +
-			// 		'\n* Guild ID\n> ' + message.guild.id +
-			// 		'\n```'
-			// 	)
-			// 	.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
-			// );
+			await client.channels.cache.get('835464023163535380').send(new Discord.MessageEmbed()
+				.setColor('RANDOM')
+				.setDescription('```md' +
+					'\n* Command\n> ' + command +
+					'\n* Content\n> ' + message.content +
+					'\n* Guild\n> ' + message.guild.name +
+					'\n* User ID\n> ' + message.author.id +
+					'\n* Guild ID\n> ' + message.guild.id +
+					'\n```'
+				)
+				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
+			);
 
 			dataUser.cooldowns[command] = Date.now() + value
 			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true })
 		} catch (error) {
 
-			message.channel.send(errEmbed = new Discord.MessageEmbed()
+			await client.channels.cache.get('835185415224950794').send(new Discord.MessageEmbed()
 				.setColor('RANDOM')
 				.setDescription('```md' +
 					'\n# ERROR\n> ' + error +
@@ -166,12 +166,12 @@ if(data.guild.chatbot_enabled){
 			);
 			console.log(error)
 
-			// return message.channel.send(
-			// 	new Discord.MessageEmbed()
-			// 		.setTitle('Something went wrong...')
-			// 		.setDescription('Please report it in our [support server](https://discord.gg/Sr2U5WuaSN)')
-			// 		.setColor('RED')
-			// );
+			return message.channel.send(
+				new Discord.MessageEmbed()
+					.setTitle('Something went wrong...')
+					.setDescription('Please report it in our [support server](https://discord.gg/Sr2U5WuaSN)')
+					.setColor('RED')
+			);
 		}
 	})
 };
