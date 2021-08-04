@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 module.exports = mongoose.model('spaceship', mongoose.Schema({
     SpaceShipID: { type: String, required: true },
     SpaceShipName: { type: String, default: 'Unnamed' },
-    SpaceShipIcon: { type: String, default: 'https://cdn.discordapp.com/avatars/779996223008407552/fa0fe884ad927505c19b8188bb753fe1.png' },
+    SpaceShipIcon: { type: String, default: 'https://cdn.discordapp.com/attachments/830003682300133376/872408420937007124/816574250366271518.png' },
     SpaceShipDescription: { type: String, default: 'No description!' },
     //
     SpaceShipCaptain: { type: String, required: true },
