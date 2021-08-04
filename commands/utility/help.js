@@ -77,7 +77,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     collector.on('collect', async menu => {
 
       const categoryArray = fs.readdirSync('./commands/');
-      const category = categoryArray.filter(x => x === menu.values[0].join('');
+      const category = categoryArray.filter(x => x === menu.values[0].join(''));
 
       const cmds = client.commands.filter(x => x.config.category.toLowerCase() === category.toLowerCase()).map(cmd => `\`${cmd.help.name}\``).join(',');
       const cmdsEmbed = new MessageEmbed()
