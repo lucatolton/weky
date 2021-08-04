@@ -4,32 +4,32 @@ const ssSchema = require('../../schemas/spaceship');
 const id = require('../../util/utils').randomID(6)
 
 module.exports.run = async (client, message, args, utils, data) => {
-    
-await ssSchema.find().limit(10).exec(function(err, result){
- let random = function(max) { return Math.floor(Math.random() * (max+1)); };
 
-function shuffle (a) {
- let length = a.length,
- shuffled = Array(length);
- for (let i = 0, rand; i < length; ++i) {
- rand = random(i);
- if (rand !== i) shuffled[i] = shuffled[rand];
- shuffled[rand] = a[i];
- }
- return shuffled;
- };
+    await ssSchema.find().limit(10).exec(function (err, result) {
+        let random = function (max) { return Math.floor(Math.random() * (max + 1)); };
 
- let str = ''
- let i = 0
-shuffle(result).forEach((e) => {i++; str += `\`#${i}\` **` + e.SpaceShipName + '**#' + e.SpaceShipID + '\n'})
+        function shuffle(a) {
+            let length = a.length,
+                shuffled = Array(length);
+            for (let i = 0, rand; i < length; ++i) {
+                rand = random(i);
+                if (rand !== i) shuffled[i] = shuffled[rand];
+                shuffled[rand] = a[i];
+            }
+            return shuffled;
+        };
 
-message.channel.send(
-new Discord.MessageEmbed()
-.setTitle('Random space ships')
-.setDescription(str)
-.setColor('RANDOM')
-)
-});
+        let str = ''
+        let i = 0
+        shuffle(result).forEach((e) => { i++; str += `\`#${i}\` **` + e.SpaceShipName + '**#' + e.SpaceShipID + '\n' })
+
+        message.channel.send(
+            new Discord.MessageEmbed()
+                .setTitle('Random space ships')
+                .setDescription(str)
+                .setColor('RANDOM')
+        )
+    });
 };
 
 module.exports.help = {

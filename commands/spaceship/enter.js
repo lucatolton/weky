@@ -10,6 +10,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         const d = await ssSchema.findOne(query)
 
         if (!d) return message.reply('I can\'t find this spaceship!')
+        
         if (d.SpaceShipPrivate === true) {
             d.SpaceShipMessages.push(`${message.author.id}**${message.author.tag} (${message.author.id})** requested to join! Use \`wek approve/deny [Tag/Username/Id]\`!`)
 

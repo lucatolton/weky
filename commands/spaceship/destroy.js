@@ -1,13 +1,22 @@
 /* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
 const ssSchema = require('../../schemas/spaceship');
+const rpgSchema = require("../../schemas/rpg")
 
 module.exports.run = async (client, message, args, utils, data) => {
     const dataShips = await ssSchema.findOne({ SpaceShipCaptain: message.author.id })
 
     if (!dataShips) return message.reply('You don\'t! own any spaceships!')
+    await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 
-    await ssSchema.findOneAndDelete({SpaceShipCaptain: message.author.id})
+        extractedData.stats.isInASpaceShip = false
+        extractedData.stats.inWhatSpaceShip = null
+
+        await ssSchema.findOneAndDelete({ SpaceShipCaptain: message.author.id })
+
+        await rpgSchema.findOneAndUpdate({ id: message.author.id }, extractedData, { upset: true })
+
+    })
     message.reply('Success!')
 };
 
