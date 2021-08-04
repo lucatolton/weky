@@ -2,6 +2,7 @@
 
 
 const Discord = require('discord.js');
+const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
 	const items = require("../../data/rpg-data")
