@@ -6,7 +6,7 @@ const rpgSchema = require('../../schemas/rpg')
 
 module.exports.run = async (client, message, args, utils, data) => {
 	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
-        if (!extractedData || typeof extractedData == null) return client.data.rpg(message.author.id, message)
+        if (!extractedData || typeof extractedData == null) return client.data.rpg.addUser(message.author.id, message)
 	const db =  extractedData.stats.planet
 	const embed1 = new Discord.MessageEmbed()
 	.setAuthor(message.author.tag, message.author.displayAvatarURL())
