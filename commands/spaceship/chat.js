@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args, utils, data) => {
             await ssSchema.findOneAndUpdate(query, d, { upset: true })
 
         } else {
-            console.log(d.SpaceShipMessages.map((msg) => msg.slice(0, 17).join(' ')))
+            console.log(d.SpaceShipMessages.map((msg) => msg.slice(0, 17).split('').join(' ')))
             if (extractedData.stats.isInSpaceShip == false) return message.reply('You are not in any spaceship!')
             message.channel.send(
                 new Discord.MessageEmbed()
