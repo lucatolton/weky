@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     if (!dataShips) return message.reply('You don\'t! own any spaceships!')
     await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 
-        extractedData.stats.isInASpaceShip = false
+        extractedData.stats.isInSpaceShip = false
         extractedData.stats.inWhatSpaceShip = null
 
         await ssSchema.findOneAndDelete({ SpaceShipCaptain: message.author.id })
