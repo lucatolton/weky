@@ -83,7 +83,7 @@ module.exports.run = async (client, message, args, utils, data) => {
       const cmdsEmbed = new MessageEmbed()
         .addField(
           `${category.slice(0, 1).toUpperCase()}${category.slice(1)}`,
-          'Also check out our [Discord Server](https://discord.gg/pH6UN3sY) :)'
+          'Also check out our [Discord Server](https://discord.gg/pH6UN3sY) and try [Nuggies](https://top.gg/bot/779741162465525790) :)'
         )
         .setDescription(cmds)
         .setThumbnail(client.user.avatarURL({ type: 'png' }))
