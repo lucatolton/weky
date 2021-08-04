@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 module.exports.run = async (client, message, args, utils, data) => {
 	const items = require("../../data/rpg-data")
 	let xp = Math.floor(Math.random() * 6) + 1
-	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then((extractedData) => {
+	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 		if (data.user.premium == true) xp = Math.floor(Math.random() * 10) + 1
 		const equipedHero = extractedData.hero.find((e) => e.heroEquiped === true)
 
