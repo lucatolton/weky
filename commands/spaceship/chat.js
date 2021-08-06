@@ -20,8 +20,8 @@ module.exports.run = async (client, message, args, utils, data) => {
         } else {
             const messages = []
             d.SpaceShipMessages.forEach((msg) => { 
-                console.log(msg.slice(0, 17))
-                messages.push(`**${client.users.cache.get(msg.slice(0, 17)).tag}**: ${msg.slice(17)}`) 
+                console.log(msg.slice(0, 18))
+                messages.push(`**${client.users.cache.get(msg.slice(0, 18)).tag}**: ${msg.slice(17)}`) 
             })
 
             if (extractedData.stats.isInSpaceShip == false) return message.reply('You are not in any spaceship!')
