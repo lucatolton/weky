@@ -16,7 +16,7 @@ module.exports = async (client) => {
 
 
     client.on('clickMenu', async (button) => {
-        if(button.clicker.user == null) return button.reply.send("Could not fetch your data!", true)
+        if (button.clicker.user == null) return button.reply.send("Could not fetch your data!", true)
         const coll = client.backpack.get('bp');
         if (button.clicker.user.id !== coll.get(button.message.id)) return;
         button.reply.defer()
@@ -93,38 +93,38 @@ module.exports = async (client) => {
 
         if (btn.id == id1) {
             if (btn.clicker.user.id !== coll.get(buttons.message.id)) return;
+            await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then((userData) => {
 
-            let userx = await rpgDB.user(btn.clicker.user.id, btn.message)
+                const wiki = require('./rpg-data').powerups.find((v) => v.name.includes(buttons.values[buttons.values.length - 1]))
 
-            const wiki = require('./rpg-data').powerups.find((v) => v.name.includes(buttons.values[buttons.values.length - 1]))
+                if (userData[wiki.name] <= 0) return btn.reply.send('The specified power up is not in your backpack!');
 
-            if (userx.db[wiki.name] <= 0) return btn.reply.send('The specified power up is not in your backpack!');
+                if (userData.powerups.includes(wiki.powerName)) return btn.reply.send('The specified power up is already used!');
 
-            if (userx.db.powerups.includes(wiki.powerName)) return btn.reply.send('The specified power up is already used!');
+                const b = await utils.use(btn.clicker.user.id, buttons.values[buttons.values.length - 1], rpgDB, btn.message)
 
-            const b = await utils.use(btn.clicker.user.id, buttons.values[buttons.values.length - 1], rpgDB, btn.message)
-
-            btn.reply.send(`**${btn.clicker.user.username}** used one ${b.custom}. The durability of it is \`${b.wiki.durability}%\`.`, true)
+                btn.reply.send(`**${btn.clicker.user.username}** used one ${b.custom}. The durability of it is \`${b.wiki.durability}%\`.`, true)
+            })
         }
         if (btn.id == id2) {
             if (btn.clicker.user.id !== coll.get(buttons.message.id)) return;
+            await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then((userData) => {
 
-            let userx = await rpgDB.user(btn.clicker.user.id, btn.message)
+                const wiki = require('./rpg-data').powerups.find((v) => v.name.includes(buttons.values[buttons.values.length - 1]))
 
-            const wiki = require('./rpg-data').powerups.find((v) => v.name.includes(buttons.values[buttons.values.length - 1]))
+                let custom = Discord.Util.parseEmoji(wiki.emoji);
 
-            let custom = Discord.Util.parseEmoji(wiki.emoji);
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(wiki.name, `https://cdn.discordapp.com/emojis/${custom.id}.${custom.animated ? "gif" : "png"}`)
+                    .addField('Power', `\`${wiki.powerName}\``, true)
+                    .addField('Cost', `\`${wiki.cost.toLocaleString()}\` ${utils.emojis.aero}`, true)
+                    .addField('Designations', `\`${wiki.aliases.join('` , `')}\``, true)
+                    .addField('Durability', `\`${wiki.durability}%\``, true)
+                    .addField('You own', `\`${userData[wiki.name]}\``, true)
+                    .addField('Description', `${wiki.description}`, true)
 
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(wiki.name, `https://cdn.discordapp.com/emojis/${custom.id}.${custom.animated ? "gif" : "png"}`)
-                .addField('Power', `\`${wiki.powerName}\``, true)
-                .addField('Cost', `\`${wiki.cost.toLocaleString()}\` ${utils.emojis.aero}`, true)
-                .addField('Designations', `\`${wiki.aliases.join('` , `')}\``, true)
-                .addField('Durability', `\`${wiki.durability}%\``, true)
-                .addField('You own', `\`${userx.db[wiki.name]}\``, true)
-                .addField('Description', `${wiki.description}`, true)
-
-            btn.reply.send({ embed: embed, ephemeral: true })
+                btn.reply.send({ embed: embed, ephemeral: true })
+            })
         }
         if (btn.id === id3) {
             if (btn.clicker.user.id !== coll.get(buttons.message.id)) return;
@@ -184,14 +184,14 @@ module.exports = async (client) => {
                         edit(cl)
                     }
                     if (cl.id === 'done') {
-                        let userx = await rpgDB.user(btn.clicker.user.id, btn.message)
+                        await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then((userData) => {
 
-                        if (userx.db[buttons.values[buttons.values.length - 1]] < str) return cl.reply.send('The specified amount of power ups are not in your backpack!');
+                            if (userData[buttons.values[buttons.values.length - 1]] < str) return cl.reply.send('The specified amount of power ups are not in your backpack!');
 
-                        rpgDB.modify(cl.clicker.user.id, buttons.values[buttons.values.length - 1], str, '-=', btn.message)
-                        msg.delete()
-                        cl.reply.send('Ejected `' + str + ' ' + buttons.values[buttons.values.length - 1] + '` in space.', true)
-
+                            rpgDB.modify(cl.clicker.user.id, buttons.values[buttons.values.length - 1], str, '-=', btn.message)
+                            msg.delete()
+                            cl.reply.send('Ejected `' + str + ' ' + buttons.values[buttons.values.length - 1] + '` in space.', true)
+                        })
                     }
                     if (cl.id === 'stop') {
                         calc.stop()
