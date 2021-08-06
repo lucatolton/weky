@@ -8,6 +8,7 @@ const id1 = require('../util/utils').randomID(20)
 const id2 = require('../util/utils').randomID(20)
 const id3 = require('../util/utils').randomID(20)
 const utils = require('../util/utils')
+const rpgSchema = require('../schemas/rpg')
 
 module.exports = async (client) => {
 
@@ -93,7 +94,7 @@ module.exports = async (client) => {
 
         if (btn.id == id1) {
             if (btn.clicker.user.id !== coll.get(buttons.message.id)) return;
-            await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then((userData) => {
+            await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then(async (userData) => {
 
                 const wiki = require('./rpg-data').powerups.find((v) => v.name.includes(buttons.values[buttons.values.length - 1]))
 
@@ -108,7 +109,7 @@ module.exports = async (client) => {
         }
         if (btn.id == id2) {
             if (btn.clicker.user.id !== coll.get(buttons.message.id)) return;
-            await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then((userData) => {
+            await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then(async (userData) => {
 
                 const wiki = require('./rpg-data').powerups.find((v) => v.name.includes(buttons.values[buttons.values.length - 1]))
 
@@ -184,7 +185,7 @@ module.exports = async (client) => {
                         edit(cl)
                     }
                     if (cl.id === 'done') {
-                        await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then((userData) => {
+                        await rpgSchema.findOne({ id: btn.clicker.user.id }).lean().exec().then(async (userData) => {
 
                             if (userData[buttons.values[buttons.values.length - 1]] < str) return cl.reply.send('The specified amount of power ups are not in your backpack!');
 
