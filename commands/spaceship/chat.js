@@ -18,11 +18,13 @@ module.exports.run = async (client, message, args, utils, data) => {
             await ssSchema.findOneAndUpdate(query, d, { upset: true })
 
         } else {
-            console.log(d.SpaceShipMessages.map((msg) => typeof msg.slice(0, 17)))
+            const messages = []
+            d.SpaceShipMessages.map((msg) => messages.push(`**${client.users.cache.get(msg.slice(0, 17)).tag}**: ${msg.slice(17)}`))
+            
             if (extractedData.stats.isInSpaceShip == false) return message.reply('You are not in any spaceship!')
             message.channel.send(
                 new Discord.MessageEmbed()
-                    .setDescription(d.SpaceShipMessages.map((msg) => `**${client.users.cache.get(msg.slice(0, 17).join(' ')).tag}**: ${msg.slice(17)}`).join('\n') || 'Empty :/')
+                    .setDescription(messages.join('\n') || 'Empty :/')
                     .setTitle(d.SpaceShipName)
                     .setThumbnail(d.SpaceShipIcon)
                     .setColor("RANDOM")
