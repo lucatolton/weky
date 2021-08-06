@@ -15,6 +15,6 @@ module.exports = mongoose.model('spaceship', mongoose.Schema({
     //
     SpaceShipDaily: { type: Number, default: 200 },
     SpaceShipCreatedAt: { type: Date, default: Date.now() },
-    SpaceShipPrivate: { type: Boolean, default: true },
+    SpaceShipPrivate: { type: Boolean, default: false },
     SpaceShipMessages: { type: Array, default: [] },
 }, { minimize: false }))

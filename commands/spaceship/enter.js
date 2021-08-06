@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 
             message.channel.send('Successfully entered in `' + d.SpaceShipName + '`! Have fun!')
             await data.rpg.modifyStats(message.author.id, 'isInSpaceShip', true, '=', message)
-            await data.rpg.modifyStats(message.author.id, 'inWhatSpaceShip', id, '=', message)
+            await data.rpg.modifyStats(message.author.id, 'inWhatSpaceShip', args[0].replace('#', ''), '=', message)
 
             d.SpaceShipPilots[message.author.id] = Date.now()
             await ssSchema.findOneAndUpdate(query, d, { upset: true })
