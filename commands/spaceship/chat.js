@@ -10,28 +10,44 @@ module.exports.run = async (client, message, args, utils, data) => {
 
         if (!d) return message.reply('I can\'t find this spaceship!')
 
+        let i = 0
 
         if (args[0]) {
             message.react('👀')
-            d.SpaceShipMessages.push(`${message.author.id}${args.slice(1).join(' ')}`)
+            d.SpaceShipMessages.push(`${message.author.id}${args.slice(0).join(' ')}`)
 
             await ssSchema.findOneAndUpdate(query, d, { upset: true })
 
         } else {
             const messages = []
-            d.SpaceShipMessages.forEach((msg) => { 
+            d.SpaceShipMessages.forEach((msg) => {
+                i++
                 console.log(msg.slice(0, 18))
-                messages.push(`**${client.users.cache.get(msg.slice(0, 18)).tag}**: ${msg.slice(18)}`) 
+                messages.push(`**${client.users.cache.get(msg.slice(0, 18)).tag}**: ${msg.slice(18)}`)
             })
 
             if (extractedData.stats.isInSpaceShip == false) return message.reply('You are not in any spaceship!')
-            message.channel.send(
-                new Discord.MessageEmbed()
-                    .setDescription(messages.join('\n') || 'Empty :/')
-                    .setTitle(d.SpaceShipName)
-                    .setThumbnail(d.SpaceShipIcon)
-                    .setColor("RANDOM")
-            )
+            if (i <= 30) {
+                message.channel.send(
+                    new Discord.MessageEmbed()
+                        .setDescription(messages.join('\n') || 'Empty :/')
+                        .setTitle(d.SpaceShipName)
+                        .setThumbnail(d.SpaceShipIcon)
+                        .setColor("RANDOM")
+                )
+            } else {
+                d.SpaceShipMessages = []
+
+                await ssSchema.findOneAndUpdate(query, d, { upset: true })
+
+                message.channel.send(
+                    new Discord.MessageEmbed()
+                        .setDescription(messages.join('\n') || 'Empty :/')
+                        .setTitle(d.SpaceShipName)
+                        .setThumbnail(d.SpaceShipIcon)
+                        .setColor("RANDOM")
+                )
+            }
         }
     })
 };
