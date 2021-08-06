@@ -16,6 +16,7 @@ module.exports = async (client) => {
 
 
     client.on('clickMenu', async (button) => {
+        if(button.clicker.user == null) return button.reply.send("Could not fetch your data!", true)
         const coll = client.backpack.get('bp');
         if (button.clicker.user.id !== coll.get(button.message.id)) return;
         button.reply.defer()
