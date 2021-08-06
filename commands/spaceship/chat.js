@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 
         } else {
             const messages = []
-            d.SpaceShipMessages.map((msg) => messages.push(`**${client.users.cache.get(msg.slice(0, 17)).tag}**: ${msg.slice(17)}`))
+            d.SpaceShipMessages.forEach((msg) => messages.push(`**${client.users.cache.get(msg.slice(0, 17)).tag}**: ${msg.slice(17)}`))
             
             if (extractedData.stats.isInSpaceShip == false) return message.reply('You are not in any spaceship!')
             message.channel.send(
