@@ -22,7 +22,6 @@ module.exports.run = async (client, message, args, utils, data) => {
             const messages = []
             d.SpaceShipMessages.forEach((msg) => {
                 i++
-                console.log(msg.slice(0, 18))
                 messages.push(`**${client.users.cache.get(msg.slice(0, 18)).tag}**: ${msg.slice(18)}`)
             })
 
