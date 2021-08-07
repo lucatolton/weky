@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 
             if (extractedData.aero < parseInt(args[0])) return utils.errorEmbed(message, 'Sorry! You specified more aero than you have!')
             if (data.SpaceShipCurrent + Math.round(parseInt(args[0])) > data.SpaceShipMax) return utils.errorEmbed(message, 'Your space ship vault reached the limit!')
-
+console.log(data, data.rpg)
             data.rpg.modify(message.author.id, 'aero', Math.round(parseInt(args[0]), message), '-=')
 
             data.SpaceShipCurrent += Math.round(parseInt(args[0]))
