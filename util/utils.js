@@ -152,7 +152,7 @@ module.exports.displaySs = async function (d, client) {
 	ctx.fillStyle = 'white';
 	ctx.textAlign = 'center';
 	ctx.font = '20px "Cute"';
-	ctx.fillText(`${Math.round(total / needMore)}%`, x + 162.5, 307.5 + number);
+	ctx.fillText(`${this.realPercentage(total, needMore)}%`, x + 162.5, 307.5 + number);
 
 	//line
 	ctx.beginPath();

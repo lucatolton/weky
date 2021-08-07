@@ -10,10 +10,13 @@ module.exports.run = async (client, message, args, utils, data) => {
 
     if (dataShips) return message.reply('You are already a Captain in `' + dataShips.SpaceShipName + '`!')
     await ssSchema.create({ SpaceShipID: id, SpaceShipCaptain: message.author.id }).then(async (d) => {
-        
+
         await data.rpg.modifyStats(message.author.id, 'isInSpaceShip', true, '=', message)
         await data.rpg.modifyStats(message.author.id, 'inWhatSpaceShip', id, '=', message)
-        d.SpaceShipPilots[message.author.id] = Date.now()
+        d.SpaceShipPilots[message.author.id] = {}
+        d.SpaceShipPilots[message.author.id].joinedAt = Date.now()
+        d.SpaceShipPilots[message.author.id].deposited = 0
+        
         await ssSchema.findOneAndUpdate({ SpaceShipCaptain: message.author.id }, d, { upset: true })
 
         message.reply('Success! Check it with `wek spaceship` and customize it with `wek set`!')
