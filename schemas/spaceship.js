@@ -10,7 +10,7 @@ module.exports = mongoose.model('spaceship', mongoose.Schema({
     SpaceShipOfficer: { type: String, default: null },
     SpaceShipPilots: { type: Object, default: {} },
     //
-    SpaceShipMin: { type: Number, default: 1 },
+    SpaceShipCurrent: { type: Number, default: 1 },
     SpaceShipMax: { type: Number, default: 30000 },
     //
     SpaceShipDaily: { type: Number, default: 200 },

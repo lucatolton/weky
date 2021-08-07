@@ -74,7 +74,7 @@ module.exports.emojis = {
 }
 
 module.exports.displaySs = async function (d, client) {
-	let total = d.SpaceShipMin
+	let total = d.SpaceShipCurrent
 	let needMore = d.SpaceShipMax
 
 	const { createCanvas, registerFont } = require('canvas')
@@ -269,10 +269,13 @@ module.exports.createButtonPagination = async function (array, message) {
 		}
 	})
 }
-module.exports.calculatePercentage = async function (num, perc) {
+module.exports.calculatePercentage = function (num, perc) {
 	return (num * perc) / 100
 }
 
+module.exports.realPercentage = function (min, max) {
+	return (max / min) *100
+}
 module.exports.displayProgressBar = function (progress) {
     if (progress < 10) { return "<:bar1Empty:872078474708414464><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
     else if (progress < 20) { return "<:bar1Half:872080754513944587><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
