@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 
             ssData.SpaceShipCurrent += Math.round(parseInt(args[0]))
             ssData.save()
-            message.reply(utils.emojis.share + ` | **${message.author.username}** deposited \`${Math.round(parseInt(args[0])).toLocaleString("en") + ' (' + Math.round(percentageBetweenVault) + '%)` ' + utils.emojis.aero} to **${data.SpaceShipName + '#' + data.SpaceShipID}**.`)
+            message.reply(utils.emojis.share + ` | **${message.author.username}** deposited \`${Math.round(parseInt(args[0])).toLocaleString("en") + ' (' + Math.round(percentageBetweenVault) + '%)` ' + utils.emojis.aero} to **${ssData.SpaceShipName + '#' + ssData.SpaceShipID}**.`)
         })
     })
 };
