@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const config = require('../../util/config.json');
 const rpgSchema = require('../../schemas/rpg')
-
+const ssSchema = require('../../schemas/spaceship')
 module.exports.run = async (client, message, args, utils, data) => {
     await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
         await ssSchema.findOne({ SpaceShipID: extractedData.stats.inWhatSpaceShip }, async (err, data) => {
