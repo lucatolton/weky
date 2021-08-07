@@ -44,6 +44,9 @@ module.exports.run = async (client, message, args, utils, data) => {
             const officer = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || client.members.cache.get(args[1]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === args.slice(1).join(" ") || x.user.username === args[1]);
             if (!officer) return message.reply('You must provide an officer!')
             if (dataShips.SpaceShipCoPilot == officer.id) dataShips.SpaceShipCoPilot = null
+            
+            if (!dataShips.SpaceShipPilots[officer.id]) return message.reply('The user is not a pilot in your space ship!')
+            
             dataShips.SpaceShipOfficer = officer.id
             dataShips.save()
             message.reply('Successfully applied the changes!')
@@ -54,6 +57,9 @@ module.exports.run = async (client, message, args, utils, data) => {
             const copilot = message.mentions.members.first() || message.guild.members.cache.get(args[1]) || client.members.cache.get(args[1]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === args.slice(1).join(" ") || x.user.username === args[1]);
             if (!copilot) return message.reply('You must provide an copilot!')
             if (dataShips.SpaceShipOfficer == copilot.id) dataShips.SpaceShipOfficer = null
+
+            if (!dataShips.SpaceShipPilots[copilot.id]) return message.reply('The user is not a pilot in your space ship!')
+
             dataShips.SpaceShipCoPilot = copilot.id
             dataShips.save()
             message.reply('Successfully applied the changes!')

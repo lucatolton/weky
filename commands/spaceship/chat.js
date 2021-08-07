@@ -33,6 +33,7 @@ module.exports.run = async (client, message, args, utils, data) => {
                         .setTitle(d.SpaceShipName)
                         .setThumbnail(d.SpaceShipIcon)
                         .setColor("RANDOM")
+                        .setFooter('By the way you can use wek chat <text> to chat!')
                 )
             } else {
                 d.SpaceShipMessages = []
