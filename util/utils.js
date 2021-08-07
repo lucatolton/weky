@@ -274,14 +274,14 @@ module.exports.calculatePercentage = function (num, perc) {
 }
 
 module.exports.realPercentage = function (min, max) {
-	return (max / min) *100
+	return (min / max) * 100
 }
 module.exports.displayProgressBar = function (progress) {
-    if (progress < 10) { return "<:bar1Empty:872078474708414464><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
-    else if (progress < 20) { return "<:bar1Half:872080754513944587><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
-    else if (progress < 40) { return "<:bar1Full1:872080754220367912><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
-    else if (progress < 60) { return "<:bar1Full1:872080754220367912><:bar2Half1:872080714890358796><:bar3Empty:872078570485350481>"; }
-    else if (progress < 80) { return "<:bar1Full1:872080754220367912><:bar2Full:872080715389485067><:bar3Empty:872078570485350481> "; }
-    else if (progress < 90) { return "<:bar1Full1:872080754220367912><:bar2Full:872080715389485067><:bar3Half:872080668237111296>"; }
-    else { return "<:bar1Full1:872080754220367912><:bar2Full:872080715389485067><:bar3Full1:872080653594808320>"; }
+	if (progress < 10) { return "<:bar1Empty:872078474708414464><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
+	else if (progress < 20) { return "<:bar1Half:872080754513944587><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
+	else if (progress < 40) { return "<:bar1Full1:872080754220367912><:bar2Empty:872078539652993054><:bar3Empty:872078570485350481>"; }
+	else if (progress < 60) { return "<:bar1Full1:872080754220367912><:bar2Half1:872080714890358796><:bar3Empty:872078570485350481>"; }
+	else if (progress < 80) { return "<:bar1Full1:872080754220367912><:bar2Full:872080715389485067><:bar3Empty:872078570485350481> "; }
+	else if (progress < 90) { return "<:bar1Full1:872080754220367912><:bar2Full:872080715389485067><:bar3Half:872080668237111296>"; }
+	else { return "<:bar1Full1:872080754220367912><:bar2Full:872080715389485067><:bar3Full1:872080653594808320>"; }
 }
