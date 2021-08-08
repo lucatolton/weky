@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 		message.channel.send(me);
 	}
 	else {
-		message.channel.send('Use this `wek setchat <channel> true/false`');
+		message.channel.send('Use this `wek setchat true/false <channel>`');
 	}
 
 };
@@ -22,7 +22,7 @@ module.exports.help = {
 	aliases: [],
 	name: 'setchat',
 	description: 'Enable chatbot in a channel',
-	usage: 'wek setchat <channel> true/false',
+	usage: 'wek setchat true/false <channel>',
 };
 
 module.exports.config = {
