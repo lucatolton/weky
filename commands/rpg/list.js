@@ -11,6 +11,10 @@ module.exports.run = async (client, message, args, utils, data) => {
         const Mob = mobFinder.mobs
 
         const mappedData = Object.keys(Mob).map((key) => {
+            console.log(extractedData.stats.mobsDefeated.includes(Mob[key].name))
+console.log(Mob[key].name)
+console.log(extractedData.stats.mobsDefeated)
+
             if (extractedData.stats.mobsDefeated.includes(Mob[key].name)) {
                 check = '<:yes:853631479384899614>'
             } else {
