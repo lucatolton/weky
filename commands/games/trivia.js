@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args, utils, data) => {
   const low = ["easy", "medium", "hard"]
   var diff = args[0]
 
-  if (!diff || !low.includes(low)) return message.reply('Please choose a difficulty, list: `easy`, `medium`, `hard`')
+  if (!diff || !low.includes(diff)) return message.reply('Please choose a difficulty, list: `easy`, `medium`, `hard`')
 
   await Trivia({
     message: message,
