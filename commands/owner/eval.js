@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 	let code = args.join(' ');
 	try {
 
-		let evaled = eval(code);
+		let evaled = eval('async function ajabalah(){\n' + code + '\n}ajabalah');
 
 		if (typeof evaled !== 'string') {
 			evaled = require('util').inspect(evaled);
