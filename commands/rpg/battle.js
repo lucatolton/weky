@@ -108,7 +108,15 @@ module.exports.run = async (client, message, args, utils, data) => {
 						if (extractedData.powerups.includes('Blood Eater II') && chanceFor2 <= 10) {
 							const percent = await utils.calculatePercentage(gameData[tempPlayer].health, 5)
 							gameData[tempPlayer].health -= Math.round(gameData[tempPlayer].health / percent)
-							data.rpg.modify(message.author.id, 'BerylP', require('weky').randomizeNumber(50, 10), '-=', message)
+							data.rpg.modify(message.author.id, 'BerylP', require('weky').randomizeNumber(50, 10), '-=', message)    
+                            
+                            if (extractedData.powerups.includes('Perfect Shoot') && gameData[tempPlayer].member === equipedHero.heroName) {
+                            gameData[tempPlayer].health -= gameData[tempPlayer].damage
+
+                            console.log(Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
+                            )
+                            data.rpg.modify(message.author.id, 'PoudretteiteP', require('weky').randomizeNumber(30, 10), '-=', message)
+                        }
 						}
 						const a = await utils.calculatePercentage(randNumb, 7)
 						if (gameData[tempPlayer].member === equipedHero.heroName) {
@@ -122,14 +130,6 @@ module.exports.run = async (client, message, args, utils, data) => {
 
 
 						} else gameData[tempPlayer].health -= randNumb
-
-						if (extractedData.powerups.includes('Sword Agility') && gameData[tempPlayer].member === equipedHero.heroName) {
-							gameData[tempPlayer].damage *= Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
-
-							console.log(Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
-							)
-							data.rpg.modify(message.author.id, 'PoudretteiteP', require('weky').randomizeNumber(30, 10), '-=', message)
-						}
 						player = (player + 1) % 2;
 
 

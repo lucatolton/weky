@@ -77,16 +77,16 @@ module.exports.powerups = [
     powerName: "Blood Eater II",
     description: "**Beryl** calls bats by the refected light to bite the enemy and the blood of it flows, which has a chance of `10/100` damages `10%` of its health."
   },
-//   {
-//     name: "Jadeite",
-//     aliases: ["jadeite", 'jad', 'jade', 'jadeit'],
-//     emoji: require('../util/utils').emojis.Jadeite,
-//     emojiID: require('../util/utils').emojis.JadeiteID,
-//     cost: 14400,
-//     durability: 200,
-//     powerName: "Sword Agility",
-//     description: "**Jadeite** makes the legendary sword to come belong the agility offered by it. Giving the hero `10%` damage."
-//   },
+  {
+    name: "Jadeite",
+    aliases: ["jadeite", 'jad', 'jade', 'jadeit'],
+    emoji: require('../util/utils').emojis.Jadeite,
+    emojiID: require('../util/utils').emojis.JadeiteID,
+    cost: 14400,
+    durability: 200,
+    powerName: "Perfect Shoot",
+    description: "**Jadeite** makes the legendary sword to come belong the agility offered by it. Making the hero have a chance to deal one time 100% damage."
+  },
   {
     name: "Opal",
     aliases: ["op", 'opa', 'opal'],
