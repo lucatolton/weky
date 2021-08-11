@@ -84,8 +84,8 @@ module.exports.powerups = [
     emojiID: require('../util/utils').emojis.JadeiteID,
     cost: 14400,
     durability: 200,
-    powerName: "Sword Agility",
-    description: "**Jadeite** makes the legendary sword to come belong the agility offered by it. Giving the hero `10%` damage."
+    powerName: "Perfect Shoot",
+    description: "**Jadeite** makes the legendary sword to come belong the agility offered by it. Making the hero have a chance to deal one time 100% damage."
   },
   {
     name: "Opal",

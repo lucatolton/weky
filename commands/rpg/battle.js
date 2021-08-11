@@ -108,7 +108,15 @@ module.exports.run = async (client, message, args, utils, data) => {
 						if (extractedData.powerups.includes('Blood Eater II') && chanceFor2 <= 10) {
 							const percent = await utils.calculatePercentage(gameData[tempPlayer].health, 5)
 							gameData[tempPlayer].health -= Math.round(gameData[tempPlayer].health / percent)
-							data.rpg.modify(message.author.id, 'BerylP', require('weky').randomizeNumber(50, 10), '-=', message)
+							data.rpg.modify(message.author.id, 'BerylP', require('weky').randomizeNumber(50, 10), '-=', message)    
+                            
+                            if (extractedData.powerups.includes('Perfect Shoot') && gameData[tempPlayer].member === equipedHero.heroName) {
+                            gameData[tempPlayer].health -= gameData[tempPlayer].damage
+
+                            console.log(Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
+                            )
+                            data.rpg.modify(message.author.id, 'PoudretteiteP', require('weky').randomizeNumber(30, 10), '-=', message)
+                        }
 						}
 						const a = await utils.calculatePercentage(randNumb, 7)
 						if (gameData[tempPlayer].member === equipedHero.heroName) {
@@ -122,14 +130,6 @@ module.exports.run = async (client, message, args, utils, data) => {
 
 
 						} else gameData[tempPlayer].health -= randNumb
-
-						if (extractedData.powerups.includes('Sword Agility') && gameData[tempPlayer].member === equipedHero.heroName) {
-							gameData[tempPlayer].damage *= Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
-
-							console.log(Math.floor(await utils.calculatePercentage(gameData[tempPlayer].damage, 10))
-							)
-							data.rpg.modify(message.author.id, 'PoudretteiteP', require('weky').randomizeNumber(30, 10), '-=', message)
-						}
 						player = (player + 1) % 2;
 
 
@@ -160,7 +160,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 								ct.fillText(gameData[1].health, 104, 25)  // HP HERO
 								ct.fillText(gameData[0].health, 350, 25)  // HP MOB
 								if (gameData[tempPlayer].member === Mob.name) {
-									data.rpg.modifyStats(message.author.id, 'diedCounter', 1, '+=', message)
+									await data.rpg.modifyStats(message.author.id, 'diedCounter', 1, '+=', message)
 									data.rpg.checkIfLvlUp(message.author.id, message)
 									ct.drawImage(mo, 250, 80, 250, 250);
 
@@ -168,7 +168,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 									color = '#3f0000';
 									winorlose = 'You lost...';
 								} else if (gameData[tempPlayer].member === Hero.name.join('')) {
-									data.rpg.modifyStats(message.author.id, 'mobsKilled', 1, '+=', message)
+									await data.rpg.modifyStats(message.author.id, 'mobsKilled', 1, '+=', message)
 									ct.drawImage(her, -10, 40, 250, 250);
 
 									ct.drawImage(MOB, 250, 80, 250, 250);
@@ -176,7 +176,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 									color = '#7EDA2E';
 
 
-									if (!extractedData.stats.mobsDefeated.includes(Mob.name)) data.rpg.modifyStats(message.author.id, 'mobsDefeated', Mob.name, 'push', message)
+									if (!extractedData.stats.mobsDefeated.includes(Mob.name)) await data.rpg.modifyStats(message.author.id, 'mobsDefeated', Mob.name, 'push', message)
 
 									await data.rpg.addXP(message.author.id, message, Math.round(xp * Mob.chanceForThings))
 
