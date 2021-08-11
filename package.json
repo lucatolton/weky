@@ -1,57 +1,34 @@
 {
-  "name": "weky1",
-  "author": "Weky Development",
-  "license": "ISC",
+  "name": "wekybot",
   "version": "1.0.0",
-  "description": "Weky Bot! An all in one bot that you need to add to your server right now!",
+  "description": "You can contribute to [Weky](https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=261188086870&scope=applications.commands%20bot) by creating [Pull Requests](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#:~:text=Pull%20requests%20let%20you%20tell,merged%20into%20the%20base%20branch.)!",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
   "dependencies": {
-    "@discordjs/opus": "^0.5.0",
-    "@top-gg/sdk": "^3.0.9",
-    "alexa-bot-api": "^0.2.1",
     "ascii-table": "^0.0.9",
-    "bson": "^4.4.1",
-    "axios": "^0.21.1",
-    "beautify": "0.0.8",
-    "canvacord": "^5.0.8",
-    "canvas": "^2.6.0",
-    "canvas-senpai": "^1.0.0",
+    "canvacord": "^5.2.3",
+    "canvas": "^2.8.0",
     "discord-buttons": "^4.0.0",
-    "discord-canvas": "^1.4.1",
-    "discord-giveaway": "^1.1.2",
-    "discord-image-generation": "^1.4.7",
-    "discord-rpc": "^4.0.1",
-    "discord-xp": "^1.1.7",
+    "discord-image-generation": "^1.4.9",
     "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "ffmpeg-static": "^4.3.0",
-    "figlet": "^1.5.0",
-    "fs": "0.0.1-security",
-    "goosecache": "^9.0.14",
-    "got": "^11.8.1",
-    "idiotic-api": "^0.2.11",
-    "mathjs": "^9.2.0",
-    "mcapi": "^1.0.1",
-    "moment": "^2.29.1",
-    "mongoose": "^5.11.15",
-    "ms": "^2.1.3",
-    "node-fetch": "^2.6.1",
-    "opusscript": "^0.0.8",
-    "path": "^0.12.7",
-    "random-animal.js": "^1.0.3",
-    "random-words": "^1.1.1",
-    "reconlx": "^1.2.41",
-    "snakecord": "^1.0.5",
-    "top.gg-core": "^1.0.0-b",
-    "twemoji-parser": "^13.0.0",
-    "txtgen": "^2.2.8",
-    "uninstall": "0.0.0",
-    "util": "^0.10.4",
-    "weky": "^3.1.0"
+    "dotenv": "^10.0.0",
+    "mongoose": "^5.13.6",
+    "pretty-ms": "^7.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WekyDev/weky.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WekyDev/weky/issues"
+  },
+  "homepage": "https://github.com/WekyDev/weky#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0"
   }
 }
