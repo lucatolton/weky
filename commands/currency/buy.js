@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, utils, data) => {
     if(extractedData.aero < wastedMoney) return utils.errorEmbed(message, `You dont have enough money!`)
 
     data.rpg.modify(message.author.id, wiki.name, amount, '+=', message)
-    data.rpg.modify(message.author.id, wiki.aero, wastedMoney, '-=', message)
+    data.rpg.modify(message.author.id, 'aero', wastedMoney, '-=', message)
 
     message.channel.send(`**${message.author.username}** bought ${amount} ${custom} with ${wastedMoney} ${utils.emojis.aero}`)
     })
