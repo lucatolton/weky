@@ -342,9 +342,7 @@ module.exports = {
 			await rpgSchema.findOneAndUpdate({ id: id }, data)
 			message.channel.send(`:tada: | **${message.author.username}** leveled up!\n**${db.heroLvl}** <:lvl1:853247321549701161><:lvl2:853247321332121601> | +\`${b}\` <:HP:845326275035529287><:HP:845326308417601566> | +\`${i}\` <:DM:845319973915459604><:DM:845320037875056712> | +\`${e}\` ${require('./utils').emojis.aero}`);
 		}
-		const lm = await this.user(id, message)
-
-		if (db.heroLvl === 5 && lm.db.hero.find((v) => v.heroName.includes('Aspeon')).heroUnlocked !== true && !lm.equipedHero.heroName !== 'Aspeon') {
+		if (db.heroLvl === 5 && data.hero.find((v) => v.heroName.includes('Aspeon')).heroUnlocked !== true && !db.heroName !== 'Aspeon') {
 			this.modifyHero(id, 'heroUnlocked', true, '=', 'Aspeon', message)
 
 			message.channel.send(`${byArgs.emoji} | **New Hero!**\n\`Aspeon\`: ${byArgs.randomSentence}`);

@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
     channel.send(embed);
-    message.channel.send("**Bug report has been sent!**\nJoin here if you want to see it", btn)
+    message.channel.send("**Bug report has been sent!**\nJoin here if you want to see it", { components: [{ type: 1, components: [{ btn }]}]})
 };
 
 module.exports.help = {
