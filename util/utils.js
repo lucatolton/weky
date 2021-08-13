@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const rpgSchema = require('../schemas/rpg');
+const dis = require('discord-buttons')
 
 module.exports.prefix = 'wek '
-
 
 module.exports.shuffleArray = function (array) {
 	return array.map((value) => ({ value, sort: Math.random() }))
@@ -152,7 +152,7 @@ module.exports.displaySs = async function (d, client) {
 	ctx.fillStyle = 'white';
 	ctx.textAlign = 'center';
 	ctx.font = '20px "Cute"';
-	ctx.fillText(`${this.realPercentage(total, needMore)}%`, x + 162.5, 307.5 + number);
+	ctx.fillText(`${Math.round(this.realPercentage(total, needMore))}%`, x + 162.5, 307.5 + number);
 
 	//line
 	ctx.beginPath();
@@ -202,7 +202,6 @@ module.exports.use = async function (id, power, data, message) {
 	return { custom, wiki }
 }
 module.exports.createButtonPagination = async function (array, message) {
-	const dis = require('discord-buttons')
 
 	function getRandomString(length) {
 		var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -272,7 +271,97 @@ module.exports.createButtonPagination = async function (array, message) {
 module.exports.calculatePercentage = function (num, perc) {
 	return (num * perc) / 100
 }
+module.exports.createButtonConfirmation = async function (emessage, user, { time = 30000 } = {}) {
+	const filter = button => {
+		return (user ? button.clicker.user.id === user.id : true);
+	};
+	const verify = await emessage.awaitButtons(filter, {
+		max: 1,
+		time,
+	});
+	const button = verify.first()
 
+	button.reply.defer()
+	if (!verify.size) return 0;
+	if (button.id == 'yes') return true;
+	if (button.id == 'no') return false;
+	return false;
+}
+
+module.exports.createButtonWireMinigame = async function (message, user, d) {
+	let btn1 = new dis.MessageButton().setStyle('red').setEmoji('875083412032061491').setID('wire1');
+	let btn2 = new dis.MessageButton().setStyle('green').setEmoji('875083788307284018').setID('wire2');
+	let btn3 = new dis.MessageButton().setStyle('blurple').setEmoji('875083866153554000').setID('wire3');
+
+	const msg2 = await message.channel.send(
+		`**${message.author.username}** and **${user.username}** infiltrated into the spaceship ` +
+		`**${d.SpaceShipName}** but an alert started, <@${user.id}> quickly cut the correct wire!`,
+		{
+			components: [{
+				type: 1,
+				components: [btn1, btn2, btn3]
+			}]
+		})
+	const filter = button => {
+		return (user ? button.clicker.user.id === user.id : true);
+	};
+	const collector = await msg2.awaitButtons(filter, {
+		max: 1,
+	});
+
+	const button = collector.first()
+
+		button.reply.defer()
+		const options = ['wire1', 'wire2', 'wire3']
+		const roptions = options[Math.floor(Math.random() * options.length)]
+
+		if (button.id == roptions) {
+			btn1.setStyle('grey').setDisabled(true);
+			btn2.setStyle('grey').setDisabled(true);
+			btn3.setStyle('grey').setDisabled(true);
+
+			if (button.id == 'wire1') btn1.setStyle('green').setDisabled(true);
+			if (button.id == 'wire2') btn2.setStyle('green').setDisabled(true);
+			if (button.id == 'wire3') btn3.setStyle('green').setDisabled(true);
+
+			msg2.edit(
+				`**${message.author.username}** and **${user.username}** infiltrated into the spaceship ` +
+				`**${d.SpaceShipName}** but an alert started, <@${user.id}> quickly cut the correct wire!`,
+				{
+					components: [{
+						type: 1,
+						components: [btn1, btn2, btn3]
+					}]
+				})
+			return true;
+		}
+		if (button.id !== roptions) {
+			btn1.setStyle('grey').setDisabled(true);
+			btn2.setStyle('grey').setDisabled(true);
+			btn3.setStyle('grey').setDisabled(true);
+
+			if (roptions == 'wire1') btn1.setStyle('green').setDisabled(true);
+			if (roptions == 'wire2') btn2.setStyle('green').setDisabled(true);
+			if (roptions == 'wire3') btn3.setStyle('green').setDisabled(true);
+
+			if (button.id == 'wire1') btn1.setStyle('red').setDisabled(true);
+			if (button.id == 'wire2') btn2.setStyle('red').setDisabled(true);
+			if (button.id == 'wire3') btn3.setStyle('red').setDisabled(true);
+
+			msg2.edit(
+				`**${message.author.username}** and **${user.username}** infiltrated into the spaceship ` +
+				`**${d.SpaceShipName}** but an alert started, <@${user.id}> quickly cut the correct wire!`,
+				{
+					components: [{
+						type: 1,
+						components: [btn1, btn2, btn3]
+					}]
+				})
+
+			return false
+		}
+		return false
+}
 module.exports.realPercentage = function (min, max) {
 	return (min / max) * 100
 }
