@@ -79,7 +79,7 @@ module.exports = async (client, message) => {
 					message.reply(response.message);
 				}
 				catch (e) {
-					message.reply('Something went wrong while fetching...');
+					message.reply({ content: 'Something went wrong while fetching...'});
 					console.log(e);
 				}
 			}
@@ -92,7 +92,7 @@ module.exports = async (client, message) => {
 				.setDescription('My prefix is `' + prefix + '`!')
 				.addField('\u200b', '[Support server](https://discord.gg/Sr2U5WuaSN) | [Bot invite](https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=261188086870&scope=applications.commands%20bot)')
 				.setColor('RANDOM');
-			message.channel.send(m);
+			message.channel.send({ embeds: [m]});
 		}
 
 		if (!message.content.startsWith(prefix)) return;
@@ -130,7 +130,7 @@ module.exports = async (client, message) => {
 		if (dataUser.cooldowns[command] > Date.now()) {
 
 			const timeLeft = pms(dataUser.cooldowns[command] - Date.now());
-			return message.channel.send(utils.emojis.timer + ' | This command is in cooldown for `' + timeLeft + '`! Its default cooldown is ' + pms(value) + '!');
+			return message.channel.send({ content: utils.emojis.timer + ' | This command is in cooldown for `' + timeLeft + '`! Its default cooldown is ' + pms(value) + '!'});
 		}
 
 		try {
@@ -153,7 +153,7 @@ module.exports = async (client, message) => {
 			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true })
 		} catch (error) {
 
-			await message.channel.send(new Discord.MessageEmbed()
+			await message.channel.send({ embeds: [new Discord.MessageEmbed()
 				.setColor('RANDOM')
 				.setDescription('```md' +
 					'\n# ERROR\n> ' + error +
@@ -165,7 +165,7 @@ module.exports = async (client, message) => {
 					'\n```'
 				)
 				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
-			);
+			]});
 			console.log(error)
 
 			// return message.channel.send(

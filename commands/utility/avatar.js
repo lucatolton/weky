@@ -10,7 +10,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         .setTitle(`${user.tag}'s avatar!`)
         .setColor("#e4101f")
         .setImage(user.displayAvatarURL({ size: 4096, dynamic: true }))
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 };
 
 module.exports.help = {

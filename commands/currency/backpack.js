@@ -2,39 +2,23 @@
 const Discord = require('discord.js');
 const config = require('../../util/config.json');
 const rpgSchema = require('../../schemas/rpg')
+const rpgData = require('../../data/rpg-data')
 
 module.exports.run = async (client, message, args, utils, data) => {
     await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
         if (!extractedData || typeof extractedData == null) return client.data.addUser(message.author.id, message)
-        
+
         let i = 0
-        const coll = client.backpack.get('bp');
 
-        const disbut = require("discord-buttons")
-
-        let select = new disbut.MessageMenu()
-            .setID('inv')
-            .setMaxValues(1)
-            .setMinValues(1)
-            .setPlaceholder('Click here to see your backpack!');
-
-        require('../../data/rpg-data').powerups.forEach((e) => {
+        rpgData.powerups.forEach((e) => {
             if (extractedData[e.name] > 0) {
                 i++
-                console.log(e.emojiID)
-                select.addOption(new disbut.MessageMenuOption()
-                    .setLabel(e.name)
-                    .setValue(e.name)
-                    .setDescription('You own: ' + extractedData[e.name])
-                    .setEmoji(e.emojiID)
-                    .setDefault())
+                str += e.emoji + ' **' + e.name + '** - ' + extractedData[e.name]
             }
         })
         if (i == 0) return message.channel.send('Empty :(')
 
-        let m = await message.channel.send('\u200b', { component: select })
-
-        await coll.set(m.id, message.author.id);
+        let m = await message.channel.send(str)
     })
 };
 module.exports.help = {

@@ -4,7 +4,7 @@ module.exports.run = async (client, message, args, utils) => {
 	const afkreason = args.join(' ') || 'AFK';
 
 	client.data.setAfk(message.author.id, afkreason)
-	message.channel.send(Discord.Util.removeMentions(`You are now afk for: **\`${afkreason}\`**`));
+	message.channel.send({ content: Discord.Util.removeMentions(`You are now afk for: **\`${afkreason}\`**`) });
 };
 
 

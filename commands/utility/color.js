@@ -60,7 +60,7 @@ module.exports.run = async (client, message, args, utils, data) => {
         .setImage('attachment://color.jpg')
         .attachFiles(rightpic)
         .setThumbnail('attachment://wea.jpg')
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed] })
 };
 
 module.exports.help = {

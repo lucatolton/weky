@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 	let code = args.join(' ');
 	try {
 
-		let evaled = eval('async function ajabalah(){\n' + code + '\n}ajabalah()');
+		let evaled = eval(code)
 
 		if (typeof evaled !== 'string') {
 			evaled = require('util').inspect(evaled);
@@ -30,22 +30,22 @@ module.exports.run = async (client, message, args, utils, data) => {
 				.setDescription(`\`Result\`\n` + `\`\`\`js\nDown\`\`\``)
 				.setColor('202020')
 
-				message.channel.send({embed: evalcode1}), fs.writeFile(`eval.txt`, `${clean(evaled)}`, function(err, result) {
-					if(err) console.log('error', err);
-				  }
-				), message.channel.send({ files: ["eval.txt"] });
+			message.channel.send({ embeds: [evalcode1] }), fs.writeFile(`eval.txt`, `${clean(evaled)}`, function (err, result) {
+				if (err) console.log('error', err);
+			}
+			), message.channel.send({ files: ["eval.txt"] });
 		}
 		let evalcode = new MessageEmbed()
 			.setDescription(`\`Result\`\n` + `\`\`\`js\n${clean(evaled)}\`\`\``)
 			.setColor('202020')
 
-		message.channel.send({ embed: evalcode })
+		message.channel.send({ embeds: [evalcode] })
 	} catch (err) {
 		let errorcode = new MessageEmbed()
 			.setDescription(`\`Result\`\n` + `\`\`\`js\n${clean(err)}\`\`\``)
 			.setColor('202020')
 
-		message.channel.send({ embed: errorcode })
+		message.channel.send({ embeds: [errorcode] })
 	}
 };
 

@@ -5,21 +5,18 @@ class Weky extends Client {
 		super(options);
 
 		this.commands = new Collection();
+		this.slashCommands = new Collection();
 		this.cooldowns = new Collection();
 		this.aliases = new Collection();
 		this.events = new Collection();
 		this.snipes = new Collection();
 		this.esnipes = new Collection();
-		this.backpack = new Collection();
 		this.tempCollector = {}
 		this.data = require('./mongo');
 	}
 
 	born(token, mongoDB) {
 		require('./start')(this);
-		require('../data/backpack')(this)
-		require('discord-buttons')(this)
-		require(`../reply`)
 		require('dotenv').config()
 
 		this.data.connect(mongoDB).then(() => {

@@ -3,16 +3,11 @@
 	"version": "1.0.0",
 	"description": "You can contribute to [Weky](https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=261188086870&scope=applications.commands%20bot) by creating [Pull Requests](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#:~:text=Pull%20requests%20let%20you%20tell,merged%20into%20the%20base%20branch.)!",
 	"main": "index.js",
-	"scripts": {
-		"postinstall": "cd node_modules/canvas && /usr/bin/node /usr/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js rebuild"
-	},
 	"dependencies": {
 		"ascii-table": "^0.0.9",
 		"canvacord": "^5.2.3",
-		"canvas": "^2.8.0",
-		"discord-buttons": "^4.0.0",
 		"discord-image-generation": "^1.4.9",
-		"discord.js": "^12.5.1",
+		"discord.js": "^13.1.0",
 		"dotenv": "^10.0.0",
 		"mongoose": "^5.13.6",
 		"node-gyp": "^8.1.0",

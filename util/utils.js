@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const rpgSchema = require('../schemas/rpg');
-const dis = require('discord-buttons')
 
 module.exports.prefix = 'wek '
 
@@ -217,14 +216,14 @@ module.exports.createButtonPagination = async function (array, message) {
 
 	let btn2;
 
-	let btn1 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.left).setStyle('gray').setID(id1).setDisabled()
+	let btn1 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.left).setStyle('SECONDARY').setID(id1).setDisabled()
 
-	if (array.length === 1) { btn2 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('gray').setID(id2).setDisabled() } else
-		btn2 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('gray').setID(id2)
+	if (array.length === 1) { btn2 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('SECONDARY').setID(id2).setDisabled() } else
+		btn2 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('SECONDARY').setID(id2)
 
-	let btn3 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.stop).setStyle('blurple').setID(id3)
+	let btn3 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.stop).setStyle('PRIMARY').setID(id3)
 
-	let row = new dis.MessageActionRow()
+	let row = new Discord.MessageActionRow()
 		.addComponent(btn1)
 		.addComponent(btn2)
 		.addComponent(btn3)
@@ -237,12 +236,12 @@ module.exports.createButtonPagination = async function (array, message) {
 		btn.reply.defer()
 		if (btn.id === id1) {
 			if (i === 1) {
-				btn1 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.left).setStyle('gray').setID(id1).setDisabled()
+				btn1 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.left).setStyle('SECONDARY').setID(id1).setDisabled()
 
 				DaBaby.edit(`Page ${i + 1} / ${array.length}`, { embed: array[i], component: row })
 			}
-			btn2 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('gray').setID(id2)
-			row = new dis.MessageActionRow()
+			btn2 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('SECONDARY').setID(id2)
+			row = new Discord.MessageActionRow()
 				.addComponent(btn1)
 				.addComponent(btn2)
 				.addComponent(btn3)
@@ -250,13 +249,13 @@ module.exports.createButtonPagination = async function (array, message) {
 			DaBaby.edit(`Page ${i + 1} / ${array.length}`, { embed: array[i], component: row })
 		} else if (btn.id === id2) {
 			if (i === array.length - 2) {
-				btn2 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('gray').setID(id2).setDisabled()
+				btn2 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.right).setStyle('SECONDARY').setID(id2).setDisabled()
 
 				DaBaby.edit(`Page ${i + 1} / ${array.length}`, { embed: array[i], component: row })
 			}
-			btn1 = new dis.MessageButton().setLabel('\u200b').setEmoji(this.emojis.left).setStyle('gray').setID(id1)
+			btn1 = new Discord.MessageButton().setLabel('\u200b').setEmoji(this.emojis.left).setStyle('SECONDARY').setID(id1)
 			i++;
-			row = new dis.MessageActionRow()
+			row = new Discord.MessageActionRow()
 				.addComponent(btn1)
 				.addComponent(btn2)
 				.addComponent(btn3)
@@ -289,9 +288,9 @@ module.exports.createButtonConfirmation = async function (emessage, user, { time
 }
 
 module.exports.createButtonWireMinigame = async function (message, user, d) {
-	let btn1 = new dis.MessageButton().setStyle('red').setEmoji('875083412032061491').setID('wire1');
-	let btn2 = new dis.MessageButton().setStyle('green').setEmoji('875083788307284018').setID('wire2');
-	let btn3 = new dis.MessageButton().setStyle('blurple').setEmoji('875083866153554000').setID('wire3');
+	let btn1 = new Discord.MessageButton().setStyle('red').setEmoji('875083412032061491').setID('wire1');
+	let btn2 = new Discord.MessageButton().setStyle('green').setEmoji('875083788307284018').setID('wire2');
+	let btn3 = new Discord.MessageButton().setStyle('blurple').setEmoji('875083866153554000').setID('wire3');
 
 	const msg2 = await message.channel.send(
 		`**${message.author.username}** and **${user.username}** infiltrated into the spaceship ` +

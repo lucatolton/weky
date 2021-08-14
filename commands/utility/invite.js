@@ -2,27 +2,25 @@
 const config = require('../../util/config.json');
 
 module.exports.run = async (client, message, args, utils, data) => {
-    const Discord = require("discord.js")
-    var embed = new Discord.MessageEmbed()
-        .addField("**Weky Bot**", "All these links helps me to grow!")
-    const disbut = require('discord-buttons')
+    const { MessageButton, MessageEmbed } = require("discord.js")
+    var embed = new MessageEmbed().addField("**Weky Bot**", "All these links helps me to grow!")
 
-    let btnInvite = new disbut.MessageButton()
+    let btnInvite = new MessageButton()
         .setLabel('Premium!')
         .setStyle('url')
         .setURL('https://patreon.com/weky')
 
-    let btnBuy = new disbut.MessageButton()
+    let btnBuy = new MessageButton()
         .setLabel('Invite me!')
         .setStyle('url')
         .setURL('https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=261188086870&scope=applications.commands%20bot')
 
-    let btnJoin = new disbut.MessageButton()
+    let btnJoin = new MessageButton()
         .setLabel('Support server!')
         .setStyle('url')
         .setURL('https://discord.gg/2EZSpxNB5z')
 
-    message.channel.send({ embed: embed, components: [{ type: 1, components: [btnJoin, btnBuy, btnInvite] }] })
+    message.channel.send({ embeds: [embed], components: [{ type: 1, components: [btnJoin, btnBuy, btnInvite] }] })
 };
 
 module.exports.help = {
