@@ -1,11 +1,8 @@
-
 const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('util');
 const readdir = util.promisify(fs.readdir);
 const ascii = require('ascii-table');
-const { glob } = require("glob");
-const globPromise = util.promisify(glob);
 
 async function startUp(client) {
 
