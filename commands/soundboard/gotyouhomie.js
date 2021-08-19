@@ -1,42 +1,41 @@
-
-
-const Discord = require('discord.js');
 const path = require('path');
-module.exports.run = async (client, message, args, utils, data) => {
-    const channel = message.member.voice.channel;
-    if (!channel) return message.channel.send('Please connect to a voice channel to use soundboard');
-    channel.join().then(async connection => {
-        const dispatcher = connection.play(path.join(__dirname + '/audio/gotyouhomie.mp3'));
-        dispatcher.on('speaking', async speaking => {
-            if (!speaking) {
-                channel.leave();
-                const disbut = require('discord-buttons')
-                let id = utils.randomID(50)
-                let btn = new disbut.MessageButton()
-                    .setStyle('green')
-                    .setLabel('Play Again')
-                    .setID(id);
-                let msg = await message.channel.send('_ _', { component: btn });
+const { createAudioResource, createAudioPlayer, joinVoiceChannel, AudioPlayerStatus } = require('@discordjs/voice');
+const { MessageButton } = require('discord.js');
 
-                const filter = m => m.clicker.user.id == message.author.id
-                let c = msg.createButtonCollector(filter)
-                c.on('collect', async (button) => {
-                    if (button.id === id) {
-                        await button.reply.defer();
-                        channel.join().then(async connection => {
-                            const dispatcher = connection.play(path.join(__dirname + '/audio/error.mp3'));
-                            dispatcher.on('speaking', speaking => {
-                                if (!speaking) {
-                                    channel.leave();
+module.exports.run = async (client, message) => {
+	const channel = message.member.voice.channel;
+	if (!channel) return message.channel.send('Please connect to a voice channel to use soundboard');
+	function play() {
+		const player = createAudioPlayer();
+		const resource = createAudioResource(path.join(__dirname + '/audio/gotyouhomie.mp3'));
+		const connection = joinVoiceChannel({
+			channelId: message.member.voice.channel.id,
+			guildId: message.guild.id,
+			adapterCreator: message.guild.voiceAdapterCreator,
+		});
 
-                                }
-                            });
-                        })
-                    }
-                });
-            }
-        });
-    }).catch(err => console.log(err));
+		player.play(resource);
+		connection.subscribe(player);
+		player.on(AudioPlayerStatus.Idle, () => {
+			connection.destroy();
+		});
+	}
+	play();
+	const btn = new MessageButton()
+		.setStyle('SUCCESS')
+		.setLabel('Play again?')
+		.setCustomId('playAgain');
+
+	const msg = await message.channel.send({ content: '\u200b', components: [{ type: 1, components: [btn] }] });
+
+	const filter = m => m.user.id == message.author.id;
+	const collector = msg.createMessageComponentCollector({ filter, componentType: 'BUTTON' });
+	collector.on('collect', async (button) => {
+		if (button.customId === 'playAgain') {
+			await button.deferUpdate();
+			play();
+		}
+	});
 };
 
 module.exports.help = {

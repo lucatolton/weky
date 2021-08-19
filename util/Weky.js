@@ -1,8 +1,11 @@
 const { Client, Collection } = require('discord.js');
 
 class Weky extends Client {
-	constructor(options) {
-		super(options);
+	constructor() {
+		super({
+			allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
+			intents: 32767,
+		});
 
 		this.commands = new Collection();
 		this.slashCommands = new Collection();
@@ -11,13 +14,13 @@ class Weky extends Client {
 		this.events = new Collection();
 		this.snipes = new Collection();
 		this.esnipes = new Collection();
-		this.tempCollector = {}
+		this.tempCollector = {};
 		this.data = require('./mongo');
 	}
 
 	born(token, mongoDB) {
 		require('./start')(this);
-		require('dotenv').config()
+		require('dotenv').config();
 
 		this.data.connect(mongoDB).then(() => {
 			console.log('Connected to MongoDB database!');

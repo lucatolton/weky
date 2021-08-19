@@ -1,14 +1,13 @@
-
 const Discord = require('discord.js');
-module.exports.run = async (client, message, args, utils, data) => {
-	target = await client.users.cache.get(args[0]);
+module.exports.run = async (client, message, args, utils) => {
+	const target = await client.users.cache.get(args[0]);
 
 	if (!target) return utils.errorEmbed(message, 'Invalid user.');
 
 	const channel = client.channels.cache.get('835142311838744626');
 	const checkbl = await client.data.getUserDB(target.id);
 
-	if (checkbl.blacklisted) return message.reply(`That user is already blacklisted!\n**User:** ${target.username + '#' + target.discriminator}\n**Reason:** \`${checkbl.blacklisted_reason}\``);
+	if (checkbl.blacklisted) return message.reply({ content : `That user is already blacklisted!\n**User:** ${target.username + '#' + target.discriminator}\n**Reason:** \`${checkbl.blacklisted_reason}\`` });
 
 	let reason = args.join(' ');
 	if (!reason) reason = 'Not specified';
@@ -21,8 +20,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 
 	message.reply(
 		`Blacklisted **${target.tag}**\n` +
-		`Reason: \`${blacklist.reason}\``, +
-	`Moderator: \`${message.author.tag}\``,
+		`Reason: \`${blacklist.reason}\``, +`Moderator: \`${message.author.tag}\``,
 	);
 	channel.send(new Discord.MessageEmbed()
 		.setTitle('User Blacklisted')
