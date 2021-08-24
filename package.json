@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/WekyDev/weky/issues"
   },
+  "engines": {
+    "node": ">=16.6.0"
+  },
   "homepage": "https://github.com/WekyDev/weky#readme",
   "dependencies": {
     "@discordjs/voice": "^0.6.0",
