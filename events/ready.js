@@ -24,7 +24,7 @@ module.exports = async (client) => {
 		arrayOfSlashCommands.push(file);
 	});
 
-	await client.guilds.cache.get('812590454821355540').commands.set(arrayOfSlashCommands);
+	await client.application.commands.set(arrayOfSlashCommands);
 
 
 	app.post('/tog-gg', webhook.advanced(), async (req) => {
