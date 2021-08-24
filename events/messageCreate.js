@@ -137,7 +137,7 @@ module.exports = async (client, message) => {
 		try {
 			await commandFile.run(client, message, args, utils, data);
 
-			await client.channels.cache.get('835464023163535380').send(new Discord.MessageEmbed()
+			await client.channels.cache.get('835464023163535380').send({ embeds: [new Discord.MessageEmbed()
 				.setColor('RANDOM')
 				.setDescription('```md' +
 					'\n* Command\n> ' + command +
@@ -148,7 +148,7 @@ module.exports = async (client, message) => {
 					'\n```'
 				)
 				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
-			);
+			}});
 
 			dataUser.cooldowns[command] = Date.now() + value;
 			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true });
@@ -170,12 +170,12 @@ module.exports = async (client, message) => {
 			] });
 			console.log(error);
 
-			return message.channel.send(
+			return message.channel.send({ embeds: [
 				new Discord.MessageEmbed()
 					.setTitle('Something went wrong...')
 					.setDescription('Please report it in our [support server](https://discord.gg/Sr2U5WuaSN)')
 					.setColor('RED')
-			);
+				]});
 		}
 	});
 };
