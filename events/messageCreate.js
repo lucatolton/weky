@@ -13,6 +13,7 @@ module.exports = async (client, message) => {
 
 		const guildDB = await client.data.getGuildDB(message.guild.id);
 		// 		const guildDB2 = await require("../schemas/Guild").findOne({ id: message.guild.id })
+		const userDB2 = await require("../schemas/userDB").findOne({ id: message.guild.id })
 		const userDB = await client.data.getUserDB(message.author.id);
 		const rpgDB = await client.data;
 		const data = {};
@@ -57,15 +58,14 @@ module.exports = async (client, message) => {
 		// 			}
 		// 		}
 
-		if (userDB.is_afk) {
+		if (userDB2.is_afk) {
 			await client.data.removeAfk(message.author.id);
 			message.channel.send(Discord.Util.removeMentions('Welcome back `' + message.author.username + '`! You are no longer afk.'));
 		}
 
 		message.mentions.users.forEach(async (u) => {
-			const theirDatabase = await client.data.getUserDB(u.id);
-			if (theirDatabase.is_afk) {
-				message.channel.send(Discord.Util.removeMentions(`\`${u.tag}\` is currently afk for: \`${theirDatabase.afkReason}\``));
+			if (userDB2.is_afk) {
+				message.channel.send(Discord.Util.removeMentions(`\`${u.tag}\` is currently afk for: \`${userDB2.afkReason}\``));
 			}
 		});
 		if (data.guild.chatbot_enabled) {
