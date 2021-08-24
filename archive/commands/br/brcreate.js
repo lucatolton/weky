@@ -14,7 +14,7 @@ module.exports.run = async (client, message, args, utils, data) => {
   const reactionschema = require('../../schemas/reactionrole');
   const msges = new Map();
   function stop(c) {
-    delete rr;
+  delete rr;
     c.stop();
     msges.forEach(m => { m.delete(); });
   }

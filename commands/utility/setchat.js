@@ -1,6 +1,5 @@
-
 const { MessageEmbed } = require('discord.js');
-module.exports.run = async (client, message, args, utils, data) => {
+module.exports.run = async (client, message, args) => {
 	if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.reply('❌**Error:** You don\'t have the permission to do that! \n you require the `MANAGE CHANNELS` permission.');
 	const channel = message.mentions.channels.first();
 	if (!channel) return message.channel.send('Use this `wek setchat true/false <channel>`');
@@ -11,10 +10,10 @@ module.exports.run = async (client, message, args, utils, data) => {
 		const me = new MessageEmbed()
 			.setColor('GREEN')
 			.setDescription(`Success, chatbot set to \`${args[0]}\` in <#${channel.id}>`);
-		message.channel.send(me);
+		message.channel.send({ embeds: [me] });
 	}
 	else {
-		message.channel.send('Use this `wek setchat true/false <channel>`');
+		message.channel.send({ content: 'Use this `wek setchat true/false <channel>`' });
 	}
 
 };
