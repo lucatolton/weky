@@ -44,8 +44,8 @@ module.exports.run = async (client, message, args, utils) => {
 							],
 						}],
 		});
-		// const copilot = await client.users.cache.get(theirSs.SpaceShipCopilot)
-		const copilot = message.author;
+		const copilot = await client.users.cache.get(theirSs.SpaceShipCopilot)
+
 		const moneyStolen = Math.round(Math.floor(Math.random() * d.SpaceShipMax) + d.SpaceShipCurrent / 1.4);
 		const verification = await utils.createButtonConfirmation(msg, copilot);
 		if (verification == true) {
