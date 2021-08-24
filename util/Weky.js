@@ -4,7 +4,7 @@ class Weky extends Client {
 	constructor() {
 		super({
 // 			allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
-			intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES],
+			intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, INTENTS.FLAGS.GUILD_VOICE_STATES],
 		});
 
 		this.commands = new Collection();
