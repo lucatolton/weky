@@ -1,4 +1,3 @@
-
 const Discord = require('discord.js');
 const fs = require('fs');
 const util = require('util');
@@ -28,7 +27,6 @@ async function startUp(client) {
 			props.fileName = file;
 			client.commands.set(props.help.name, props);
 			client.cooldowns.set(props.help.name, new Discord.Collection());
-			client.backpack.set('bp',  new Discord.Collection());
 			props.help.aliases.forEach((alias) => {
 				client.aliases.set(alias, props.help.name);
 			});
@@ -36,7 +34,5 @@ async function startUp(client) {
 		}
 	});
 	console.log(tble.toString());
-
 }
-
 module.exports = startUp;

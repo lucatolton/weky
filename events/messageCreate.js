@@ -1,24 +1,25 @@
 const Discord = require('discord.js');
 const utils = require('../util/utils');
 const fetch = require('node-fetch');
-const requiredUserDB = require('../schemas/userDB')
-const pms = require('pretty-ms')
+const requiredUserDB = require('../schemas/userDB');
+const pms = require('pretty-ms');
+/*  eslint-disable valid-typeof*/
 
 module.exports = async (client, message) => {
 
 	if (message.author.bot || !message.guild) return;
 
-	require("../schemas/userDB").findOne({ id: message.author.id }, async (err, dataUser) => {
+	require('../schemas/userDB').findOne({ id: message.author.id }, async (err, dataUser) => {
 		if (!dataUser || typeof dataUser == null) return await client.data.getUserDB(message.author.id);
 
 		const guildDB = await client.data.getGuildDB(message.guild.id);
 		// 		const guildDB2 = await require("../schemas/Guild").findOne({ id: message.guild.id })
 		const userDB = await client.data.getUserDB(message.author.id);
-		const rpgDB = await client.data
+		const rpgDB = await client.data;
 		const data = {};
 		data.guild = guildDB;
 		data.user = userDB;
-		data.rpg = rpgDB
+		data.rpg = rpgDB;
 
 		if (data.user.blacklisted == true) return;
 
@@ -59,12 +60,13 @@ module.exports = async (client, message) => {
 
 		if (userDB.is_afk) {
 			await client.data.removeAfk(message.author.id);
-			message.channel.send(Discord.Util.removeMentions('Welcome back `' + message.author.username + '`! You are no longer afk.'))
+			message.channel.send(Discord.Util.removeMentions('Welcome back `' + message.author.username + '`! You are no longer afk.'));
 		}
 
 		message.mentions.users.forEach(async (u) => {
-			if (data.user.is_afk) {
-				message.channel.send(`\`${u.tag}\` is currently afk for: \`${userData.afkReason}\``)
+			const theirDatabase = await client.data.getUserDB(u.id);
+			if (theirDatabase.is_afk) {
+				message.channel.send(Discord.Util.removeMentions(`\`${u.tag}\` is currently afk for: \`${theirDatabase.afkReason}\``));
 			}
 		});
 		if (data.guild.chatbot_enabled) {
@@ -79,12 +81,12 @@ module.exports = async (client, message) => {
 					message.reply(response.message);
 				}
 				catch (e) {
-					message.reply('Something went wrong while fetching...');
+					message.reply({ content: 'Something went wrong while fetching...' });
 					console.log(e);
 				}
 			}
 		}
-		const prefix = 'wek '
+		const prefix = 'wek ';
 		if (message.content.match(new RegExp(`^<@!?${client.user.id}>( |)$`))) {
 			const m = new Discord.MessageEmbed()
 				.setTitle('Hi, I\'m Weky !')
@@ -92,16 +94,16 @@ module.exports = async (client, message) => {
 				.setDescription('My prefix is `' + prefix + '`!')
 				.addField('\u200b', '[Support server](https://discord.gg/Sr2U5WuaSN) | [Bot invite](https://discord.com/api/oauth2/authorize?client_id=809496186905165834&permissions=261188086870&scope=applications.commands%20bot)')
 				.setColor('RANDOM');
-			message.channel.send(m);
+			message.channel.send({ embeds: [m] });
 		}
 
-		if (!message.content.startsWith(prefix)) return;
+		if (!message.content.toLowerCase().startsWith(prefix)) return;
 
 		const args = message.content.slice(prefix.length).trim().split(/ +/g);
 
 		let command = args.shift().toLowerCase();
 
-		if (dataUser.cooldowns[command] < Date.now()) await requiredUserDB.findOneAndUpdate({ id: message.author.id }, delete dataUser.cooldowns[command], { upset: true })
+		if (dataUser.cooldowns[command] < Date.now()) await requiredUserDB.findOneAndUpdate({ id: message.author.id }, delete dataUser.cooldowns[command], { upset: true });
 
 
 		if (client.aliases.has(command)) {
@@ -125,12 +127,12 @@ module.exports = async (client, message) => {
 
 		const cooldown = client.commands.get(command).config.cooldown;
 
-		let value = dataUser.premium ? cooldown / 2 : cooldown
+		const value = dataUser.premium ? cooldown / 2 : cooldown;
 
 		if (dataUser.cooldowns[command] > Date.now()) {
 
 			const timeLeft = pms(dataUser.cooldowns[command] - Date.now());
-			return message.channel.send(utils.emojis.timer + ' | This command is in cooldown for `' + timeLeft + '`! Its default cooldown is ' + pms(value) + '!');
+			return message.channel.send({ content: utils.emojis.timer + ' | This command is in cooldown for `' + timeLeft + '`! Its default cooldown is ' + pms(value) + '!' });
 		}
 
 		try {
@@ -149,11 +151,12 @@ module.exports = async (client, message) => {
 			// 	.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
 			// );
 
-			dataUser.cooldowns[command] = Date.now() + value
-			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true })
-		} catch (error) {
+			dataUser.cooldowns[command] = Date.now() + value;
+			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true });
+		}
+		catch (error) {
 
-			await message.channel.send(new Discord.MessageEmbed()
+			await message.channel.send({ embeds: [new Discord.MessageEmbed()
 				.setColor('RANDOM')
 				.setDescription('```md' +
 					'\n# ERROR\n> ' + error +
@@ -162,11 +165,11 @@ module.exports = async (client, message) => {
 					'\n* Guild\n> ' + message.guild.name +
 					'\n* User ID\n> ' + message.author.id +
 					'\n* Guild ID\n> ' + message.guild.id +
-					'\n```'
+					'\n```',
 				)
-				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
-			);
-			console.log(error)
+				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true })),
+			] });
+			console.log(error);
 
 			// return message.channel.send(
 			// 	new Discord.MessageEmbed()
@@ -175,5 +178,5 @@ module.exports = async (client, message) => {
 			// 		.setColor('RED')
 			// );
 		}
-	})
+	});
 };
