@@ -13,7 +13,7 @@ module.exports = async (client, message) => {
 
 		const guildDB = await client.data.getGuildDB(message.guild.id);
 		// 		const guildDB2 = await require("../schemas/Guild").findOne({ id: message.guild.id })
-		const userDB2 = await require("../schemas/userDB").findOne({ id: message.guild.id })
+		const userDB2 = await requiredUserDB.findOne({ id: message.author.id })
 		const userDB = await client.data.getUserDB(message.author.id);
 		const rpgDB = await client.data;
 		const data = {};
@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
 		data.rpg = rpgDB;
 
 		if (data.user.blacklisted == true) return;
-
+                if(!userDB2) new requiredUserDB({ id: userID }).save()
 
 		// 		if (guildDB2.amogus.impostorGame == message.author.id && guildDB2.amogus.inWhatChannel == message.channel.id) {
 		// 			if (!client.tempCollector[message.author.id]) client.tempCollector[message.author.id] = 0
