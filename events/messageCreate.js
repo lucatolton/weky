@@ -6,7 +6,6 @@ const pms = require('pretty-ms');
 /*  eslint-disable valid-typeof*/
 
 module.exports = async (client, message) => {
-console.log('hi')
 	if (message.author.bot || !message.guild) return;
 
 	require('../schemas/userDB').findOne({ id: message.author.id }, async (err, dataUser) => {
