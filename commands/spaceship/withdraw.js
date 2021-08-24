@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args, utils) => {
     if(!args[0] || isNaN(args[0])) return utils.errorEmbed(message, 'Whoops no aero amount specified, either its not a number!');
 		if(!theirSs) return utils.errorEmbed(message, 'What actually happened... your spaceship was erased out of existence?');
 		if(theirSs.SpaceShipCurrent < args[0]) return utils.errorEmbed(message, 'Your spaceship does not have that many aero.');
-    if(theirSs.SpaceShipCopilot !== message.author.id) return utils.errorEmbed(embed, 'This command requires a centrain role in spaceship called **Copilot**.');
+                if(theirSs.SpaceShipCopilot !== message.author.id) return utils.errorEmbed(message, 'This command requires a centrain role in spaceship called **Copilot**.');
  
 		message.channel.send({ content: `You withdrawn **${args[0].toLocaleString()}** ${utils.emojis.aero}, your spaceship now has \`${percentage}%\` at vault.` })
     theirSs.SpaceShipMessages.push(`${message.author.id}Withdrawn **${args[0].toLocaleString()}** ${utils.emojis.aero} from vault.`);
