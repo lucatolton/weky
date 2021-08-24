@@ -23,6 +23,18 @@ module.exports.run = async (client, message, args, utils, data) => {
 
 		break;
 	}
+	case 'status': {
+		const boolean = args[1];
+
+
+		if (!boolean || ['true', 'false'].includes(boolean.toLowerCase())) return message.reply('You must provide an option, true or false?!');
+
+		dataShips.SpaceShipStatus = boolean == 'true' ? true : false;
+		dataShips.save();
+		message.reply({ content: 'Successfully applied the changes!' });
+
+		break;
+	}
 	case 'name': {
 		const name = args.slice(1).join(' ');
 		if (!name || !args[1]) return message.reply({ content: 'You must provide a name!' });
@@ -76,7 +88,7 @@ module.exports.run = async (client, message, args, utils, data) => {
 	}
 	default: {
 
-		message.reply({ embeds: [new Discord.MessageEmbed().setTitle('Space ship control panel').setDescription('`description`, `name`, `icon`, `officer`, `copilot`')] });
+		message.reply({ embeds: [new Discord.MessageEmbed().setTitle('Space ship control panel').setDescription('`description`, `name`, `icon`, `officer`, `copilot`, `status`')] });
 
 		break;
 	}
