@@ -9,7 +9,8 @@ module.exports.run = async (client, message) => {
 
 		const query = { SpaceShipID: extractedData.stats.inWhatSpaceShip };
 		const d = await ssSchema.findOne(query);
-
+		
+                if(d.SpaceShipCaptain == message.author.id) return utils.errorEmbed(message, "You have to destroy that spaceship!")
 
 		extractedData.stats.isInSpaceShip = false;
 		extractedData.stats.inWhatSpaceShip = null;
