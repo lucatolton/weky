@@ -3,7 +3,7 @@ const { Client, Collection, Intents } = require('discord.js');
 class Weky extends Client {
 	constructor() {
 		super({
-			allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
+// 			allowedMentions: { parse: ['users', 'roles'], repliedUser: false },
 			intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
 		});
 
