@@ -148,7 +148,7 @@ module.exports = async (client, message) => {
 					'\n```'
 				)
 				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
-			}});
+			]});
 
 			dataUser.cooldowns[command] = Date.now() + value;
 			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true });
