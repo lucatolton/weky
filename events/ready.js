@@ -35,7 +35,6 @@ module.exports = async (client) => {
 
         // TOP.GG
 	app.post('/tog-gg', webhook.advanced(), async (req) => {
-		console.log(req)
 		const user = await client.users.cache.get(req.vote.user)
 		const embed = new MessageEmbed()
 			.setAuthor(client.user.username, client.user.displayAvatarURL(), 'https://top.gg/bot/809496186905165834/vote')
@@ -44,7 +43,7 @@ module.exports = async (client) => {
 			.setThumbnail(user.displayAvatarURL())
 			.setDescription(`**${user.tag}** (${user.id}) just voted for me!`)
 			.setTimestamp();
-		client.channels.cache.get('860258180424663040').send(embed);
+		client.channels.cache.get('860258180424663040').send({ embeds: [embed] });
 		try {
 			user.send(`Thanks for voting for me!\nYou received ** 4000 ${utils.emojis.aero}**, **1 ${utils.emojis.Beryl}**, **3 ${utils.emojis.Jadeite}**!`);
 		}
