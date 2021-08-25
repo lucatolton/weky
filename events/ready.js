@@ -28,6 +28,7 @@ module.exports = async (client) => {
 
 
 	app.post('/tog-gg', webhook.advanced(), async (req) => {
+		console.log(req)
 		const user = await fetch(`https://discord.com/api/v8/users/${req.vote.user}`, {
 			headers: {
 				Authorization: `Bot ${process.env.token}`,
@@ -52,8 +53,8 @@ module.exports = async (client) => {
 		client.data.addAero(user.id, 4000);
 	});
 
-	app.listen(process.env.PORT || 3000, () => {
-		console.log(`Weky listening on port ${process.env.PORT || 3000}`);
+	app.listen(process.env.SERVER_PORT || 3000, () => {
+		console.log(`Weky listening on port ${process.env.SERVER_PORT || 3000}`);
 	});
     console.log("\x1b[31m", "Fetching members...");
     for (const [id, guild] of client.guilds.cache) {
