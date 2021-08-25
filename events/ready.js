@@ -3,7 +3,6 @@ const { glob } = require('glob');
 const globPromise = util.promisify(glob);
 const express = require('express');
 const top = require('top.gg-core');
-const fetch = require('node-fetch');
 const webhook = new top.Webhook(process.env.topggPass);
 const { MessageEmbed } = require('discord.js');
 const app = express();
@@ -12,6 +11,14 @@ const utils = require('../util/utils');
 module.exports = async (client) => {
 	client.user.setActivity(`in ${client.guilds.cache.size} servers! | wek invite`, { type: 'PLAYING' });
 
+	// FETCHING
+	console.log("\x1b[31m", "Fetching members...");
+        for (const [id, guild] of client.guilds.cache) {
+          await guild.members.fetch();
+        }
+        console.log("\x1b[32m", "Fetched members.");
+	
+        // SLASH COMMANDS
 	const slashCommands = await globPromise(
 		`${process.cwd()}/slashcommands/*/*.js`,
 	);
@@ -26,14 +33,10 @@ module.exports = async (client) => {
 
 	await client.application.commands.set(arrayOfSlashCommands);
 
-
+        // TOP.GG
 	app.post('/tog-gg', webhook.advanced(), async (req) => {
 		console.log(req)
-		const user = await fetch(`https://discord.com/api/v8/users/${req.vote.user}`, {
-			headers: {
-				Authorization: `Bot ${process.env.token}`,
-			},
-		}).then(res => res.json());
+		const user = await client.users.cache.get(req.vote.user)
 		const embed = new MessageEmbed()
 			.setAuthor(client.user.username, client.user.displayAvatarURL(), 'https://top.gg/bot/809496186905165834/vote')
 			.setURL('https://top.gg/bot/809496186905165834/vote')
@@ -56,9 +59,4 @@ module.exports = async (client) => {
 	app.listen(process.env.SERVER_PORT, () => {
 		console.log(`Weky listening on port ${process.env.SERVER_PORT}`);
 	});
-    console.log("\x1b[31m", "Fetching members...");
-    for (const [id, guild] of client.guilds.cache) {
-        await guild.members.fetch();
-    }
-    console.log("\x1b[32m", "Fetched members.");
 };
