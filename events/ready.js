@@ -41,11 +41,11 @@ module.exports = async (client) => {
 			.setURL('https://top.gg/bot/809496186905165834/vote')
 			.setColor('#ffd984')
 			.setThumbnail(user.displayAvatarURL())
-			.setDescription(`**${user.tag}** (${user.id}) just voted for me!`)
+			.setDescription(`**${user.tag}** (${user.id}) just voted for me! They've got they rewards!`)
 			.setTimestamp();
 		client.channels.cache.get('860258180424663040').send({ embeds: [embed] });
 		try {
-			user.send(`Thanks for voting for me!\nYou received ** 4000 ${utils.emojis.aero}**, **1 ${utils.emojis.Beryl}**, **3 ${utils.emojis.Jadeite}**!`);
+			user.send(`Thanks for voting for me!\nYou received ** 4,000 ${utils.emojis.aero}**, **1 ${utils.emojis.Beryl}**, **3 ${utils.emojis.Jadeite}**!`);
 		}
 		catch(err) {
 			return;
