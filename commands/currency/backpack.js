@@ -11,7 +11,7 @@ module.exports.run = async (client, message) => {
 		rpgData.powerups.forEach((e) => {
 			if (extractedData[e.name] > 0) {
 				i++;
-				str += e.emoji + ' **' + e.name + '** - ' + extractedData[e.name];
+				str += e.emoji + ' **' + e.name + '** - x' + extractedData[e.name] + '\n';
 			}
 		});
 		if (i == 0) return message.channel.send('Empty :(');
