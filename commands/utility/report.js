@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args) => {
 	message.channel.send({
 		content: '**Bug report has been sent!**\nJoin here if you want to see it',
 		components: [{
-			type: 2,
+			type: 1,
 			components: [btn],
 		}] },
 	);
