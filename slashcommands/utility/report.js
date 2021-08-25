@@ -31,7 +31,7 @@ module.exports = {
 		interaction.followUp({
 			content: '**Bug report has been sent!**\nJoin here if you want to see it',
 			components: [{
-				type: 2,
+				type: 1,
 				components: [btn],
 			}],
 		});
