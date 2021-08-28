@@ -1,4 +1,5 @@
-const config = require('../util/config.json');
+const config = require('../../util/config.json');
+const Discord = require('discord.js');
 
 module.exports.run = async (client, message, args, utils) => {
 
@@ -10,11 +11,19 @@ module.exports.run = async (client, message, args, utils) => {
 		if (dat.amogus.enabled == false) return message.channel.send('Among us is not enabled in this guild!');
 		if (dat.amogus.isThereAlreadyAGame == true) return message.channel.send('A game is already running!');
 
-		const mentions = message.mentions.members;
+		const mentions = message.mentions.users.first(10);
+		let botsDetected = false;
 
-		if (mentions.size < 5) return message.channel.send('You need min 4 users to start!');
+		mentions.set(message.author.id, new Discord.User(client, { id: message.author.id, username: message.author.username }));
 
-		const names = ['sussy-mogus', 'amogus-play', 'a-amogus-game', 'um-baka', 'lol-red-vent'];
+		await [...mentions.values()].forEach((bot) => {
+			if(bot.bot == true) return botsDetected = true;
+		});
+
+		if (botsDetected == true) return message.channel.send('In this message, bots were detected.');
+		if (mentions.size < 4) return message.channel.send('You need min 4 users to start, including you!');
+
+		const names = ['sussy-mogus', 'amogus-play', 'a-amogus-game', 'um-baka', 'lol-red-vent', 'aw-are-not-sus', 'orp-sugoma'];
 		const channelName = names[Math.floor(Math.random() * names.length)];
 		let array = '';
 		let i = -1;
@@ -31,33 +40,32 @@ module.exports.run = async (client, message, args, utils) => {
 			'<:purpleCrewmate:869888477263704105>',
 		]);
 
-		mentions.array().forEach(async (b) => {
-
-			async function f() {
-				if (i !== mentions.size) {
-					i++;
-					dat.amogus.isThereAlreadyAGame = true;
-					dat.amogus.whoIsInGame[b.user.id] = emojis[i];
-
-					await schema.findOneAndUpdate({ id: message.guild.id }, dat, { upset: true });
-				}
-			}
-			f();
-			array += dat.amogus.whoIsInGame[b.user.id] + ' <@' + b.user.id + '>\n';
-		});
 
 		const channel = await message.guild.channels.create(channelName, {
 			type: 'text',
 			permissionOverwrites: [
 				{
 					id: message.guild.roles.everyone,
-					deny: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
+					deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES'],
 				},
 			],
 		});
 		dat.amogus.inWhatChannel = channel.id;
-		mentions.array().forEach((e) => {
-			channel.updateOverwrite(e, {
+
+		[...mentions.values()].forEach(async (b) => {
+
+			async function f() {
+				if (i !== mentions.size) {
+					i++;
+					dat.amogus.isThereAlreadyAGame = true;
+					dat.amogus.whoIsInGame[b.id] = emojis[i];
+
+					await schema.findOneAndUpdate({ id: message.guild.id }, dat, { upset: true });
+				}
+			}
+			f();
+			array += dat.amogus.whoIsInGame[b.id] + ' <@' + b.id + '>\n';
+			channel.permissionOverwrites.edit(b, {
 				SEND_MESSAGES: true,
 				VIEW_CHANNEL: true,
 			});
@@ -73,7 +81,8 @@ module.exports.run = async (client, message, args, utils) => {
 
 		setTimeout(async () => {
 			async function chooseImpostor() {
-				message.guild.members.cache.get(mentions.array()[Math.floor(Math.random() * mentions.size)].user.id)
+				const id = [...mentions.values()][Math.floor(Math.random() * mentions.size)].id;
+				message.guild.members.cache.get(id)
 					.send('You are the impostor in <#' + message.channel.id + '>, read the pinned message!')
 					.catch(async () => {
 						dat.amogus.impostorGame = null;
@@ -82,7 +91,7 @@ module.exports.run = async (client, message, args, utils) => {
 						channel.send('User had dms closed... choosing another user...');
 						await chooseImpostor();
 					});
-				dat.amogus.impostorGame = mentions.array()[Math.floor(Math.random() * mentions.size)].user.id;
+				dat.amogus.impostorGame = id;
 				await schema.findOneAndUpdate({ id: message.guild.id }, dat, { upset: true });
 
 			}

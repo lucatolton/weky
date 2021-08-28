@@ -11,6 +11,12 @@ module.exports.run = async (client, message, args) => {
 			id: 'rpg',
 		},
 		{
+			emoji: '852084751388377089',
+			name: 'Among Us',
+			description: 'Get commands of the category Among Us!',
+			id: 'amogus',
+		},
+		{
 			emoji: '876443939157205002',
 			name: 'Spaceship',
 			description: 'Get commands of the category Spaceship!',
