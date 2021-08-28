@@ -32,7 +32,12 @@ module.exports = async (client) => {
 	});
 
 	await client.application.commands.set(arrayOfSlashCommands);
-
+	
+	// Home Page
+	app.get('/', async(req, res) => {
+		res.send({success:true})
+	})
+	
 	// TOP.GG
 	app.post('/tog-gg', webhook.advanced(), async (req) => {
 		const user = await client.users.cache.get(req.vote.user);
