@@ -12,13 +12,13 @@ module.exports = async (client) => {
 	client.user.setActivity(`in ${client.guilds.cache.size} servers! | wek invite`, { type: 'PLAYING' });
 
 	// FETCHING
-	console.log("\x1b[31m", "Fetching members...");
-        for (const [id, guild] of client.guilds.cache) {
-          await guild.members.fetch();
-        }
-        console.log("\x1b[32m", "Fetched members.");
-	
-        // SLASH COMMANDS
+	console.log('\x1b[31m', 'Fetching members...');
+	for (const [id, guild] of client.guilds.cache) {
+		await guild.members.fetch();
+	}
+	console.log('\x1b[32m', 'Fetched members.');
+
+	// SLASH COMMANDS
 	const slashCommands = await globPromise(
 		`${process.cwd()}/slashcommands/*/*.js`,
 	);
@@ -33,9 +33,9 @@ module.exports = async (client) => {
 
 	await client.application.commands.set(arrayOfSlashCommands);
 
-        // TOP.GG
+	// TOP.GG
 	app.post('/tog-gg', webhook.advanced(), async (req) => {
-		const user = await client.users.cache.get(req.vote.user)
+		const user = await client.users.cache.get(req.vote.user);
 		const embed = new MessageEmbed()
 			.setAuthor(client.user.username, client.user.displayAvatarURL(), 'https://top.gg/bot/809496186905165834/vote')
 			.setURL('https://top.gg/bot/809496186905165834/vote')

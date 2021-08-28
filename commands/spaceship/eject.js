@@ -2,15 +2,15 @@
 const ssSchema = require('../../schemas/spaceship');
 const rpgSchema = require('../../schemas/rpg');
 
-module.exports.run = async (client, message) => {
+module.exports.run = async (client, message, _args, utils) => {
 
 	await rpgSchema.findOne({ id: message.author.id }).lean().exec().then(async (extractedData) => {
 		if (!extractedData || typeof extractedData == null) return client.data.addUser(message.author.id, message);
 
 		const query = { SpaceShipID: extractedData.stats.inWhatSpaceShip };
 		const d = await ssSchema.findOne(query);
-		
-                if(d.SpaceShipCaptain == message.author.id) return utils.errorEmbed(message, "You have to destroy that spaceship!")
+
+		if(d.SpaceShipCaptain == message.author.id) return utils.errorEmbed(message, 'You have to destroy that spaceship!');
 
 		extractedData.stats.isInSpaceShip = false;
 		extractedData.stats.inWhatSpaceShip = null;

@@ -12,51 +12,65 @@ module.exports = async (client, message) => {
 		if (!dataUser || typeof dataUser == null) return await client.data.getUserDB(message.author.id);
 
 		const guildDB = await client.data.getGuildDB(message.guild.id);
-		// 		const guildDB2 = await require("../schemas/Guild").findOne({ id: message.guild.id })
-		const userDB2 = await requiredUserDB.findOne({ id: message.author.id })
+		const guildDB2 = await require('../schemas/Guild').findOne({ id: message.guild.id });
+		const userDB2 = await requiredUserDB.findOne({ id: message.author.id });
 		const userDB = await client.data.getUserDB(message.author.id);
 		const rpgDB = await client.data;
 		const data = {};
+
+		let alreadyReplied;
 		data.guild = guildDB;
 		data.user = userDB;
 		data.rpg = rpgDB;
 
 		if (data.user.blacklisted == true) return;
-                if(!userDB2) new requiredUserDB({ id: userID }).save()
+		if(!userDB2) new requiredUserDB({ id: message.author.id }).save();
 
-		// 		if (guildDB2.amogus.impostorGame == message.author.id && guildDB2.amogus.inWhatChannel == message.channel.id) {
-		// 			if (!client.tempCollector[message.author.id]) client.tempCollector[message.author.id] = 0
-		// 			client.tempCollector[message.author.id] += 1
+		// AMOGUS
+		if (guildDB2.amogus.impostorGame == message.author.id && guildDB2.amogus.inWhatChannel == message.channel.id) {
+			if (!client.tempCollector[message.author.id]) client.tempCollector[message.author.id] = 0;
+			client.tempCollector[message.author.id] += 1;
 
-		// 			if (client.tempCollector[message.author.id] == 10 && guildDB2.amogus.isThereAlreadyAGame) {
+			if(Object.keys(guildDB2.amogus.whoIsInGame).length <= 3 && alreadyReplied) {
+				alreadyReplied = true;
+				message.channel.send(`This game has reached 3 players. **${guildDB2.amogus.whoIsInGame[message.author.id] = ' ' + client.users.cache.get(guildDB2.amogus.impostorGame).username}** was the impostor and won!\nDeleting the channel in 10s!`).then(() => {
+					setTimeout(() => {
+						try{
+							message.channel.delete();
+						}
+						catch(e) {
+							return;
+						}
+					}, 10000);
+				});
+			}
 
-		// 				let i = 0
-		// 				let a = []
-		// 				let a2 = []
-		// 				Object.keys(guildDB2.amogus.whoIsInGame).forEach((id) => {
-		// 					i++
-		// 					message.channel.updateOverwrite(message.guild.members.cache.get(id), {
-		// 						SEND_MESSAGES: false,
-		// 						VIEW_CHANNEL: true,
-		// 					})
-		// 					if (i <= 5) {
-		// 						a.push(guildDB2.amogus.whoIsInGame[message.author.id] + ' 🔪' + guildDB2.amogus.whoIsInGame[id] + '\n')
-		// 					} else if (i <= 100) {
-		// 						a2.push(guildDB2.amogus.whoIsInGame[message.author.id] + ' 🔪' + guildDB2.amogus.whoIsInGame[id] + '\n')
-		// 					}
-		// 				})
-		// 				message.channel.send(a.join(''))
-		// 				message.channel.send(a2.join(''))
-		// 				message.channel.send(
-		// 					guildDB2.amogus.whoIsInGame[message.author.id] +
-		// 					'  **' + message.author.username + '**\nGG! The impostor reached 100 messages without being detected! Deleting the channel in 10s!'
-		// 				).then(() => {
-		// 					setTimeout(() => {
-		// 						message.channel.delete()
-		// 					}, 10000)
-		// 				})
-		// 			}
-		// 		}
+			if (client.tempCollector[message.author.id] == 100 && guildDB2.amogus.isThereAlreadyAGame) {
+
+				const a = [];
+				Object.keys(guildDB2.amogus.whoIsInGame).forEach((id) => {
+					message.channel.permissionOverwrites.edit(message.guild.members.cache.get(id), {
+						SEND_MESSAGES: false,
+						VIEW_CHANNEL: true,
+					});
+					a.push(guildDB2.amogus.whoIsInGame[message.author.id] + ' 🔪' + guildDB2.amogus.whoIsInGame[id] + '\n');
+				});
+				message.channel.send({ content: a.join('') });
+				message.channel.send({ content:
+					guildDB2.amogus.whoIsInGame[message.author.id] +
+							'  **' + message.author.username + '**\nGG! The impostor reached 100 messages without being detected! Deleting the channel in 10s!',
+				}).then(() => {
+					setTimeout(() => {
+						try {
+							message.channel.delete();
+						}
+						catch(e) {
+							return;
+						}
+					}, 10000);
+				});
+			}
+		}
 
 		if (userDB2.is_afk) {
 			await client.data.removeAfk(message.author.id);
@@ -137,18 +151,18 @@ module.exports = async (client, message) => {
 		try {
 			await commandFile.run(client, message, args, utils, data);
 
-			await client.channels.cache.get('835464023163535380').send({ embeds: [new Discord.MessageEmbed()
-				.setColor('RANDOM')
-				.setDescription('```md' +
-					'\n* Command\n> ' + command +
-					'\n* Content\n> ' + message.content +
-					'\n* Guild\n> ' + message.guild.name +
-					'\n* User ID\n> ' + message.author.id +
-					'\n* Guild ID\n> ' + message.guild.id +
-					'\n```'
-				)
-				.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
-			]});
+			// await client.channels.cache.get('835464023163535380').send({ embeds: [new Discord.MessageEmbed()
+			// 	.setColor('RANDOM')
+			// 	.setDescription('```md' +
+			// 		'\n* Command\n> ' + command +
+			// 		'\n* Content\n> ' + message.content +
+			// 		'\n* Guild\n> ' + message.guild.name +
+			// 		'\n* User ID\n> ' + message.author.id +
+			// 		'\n* Guild ID\n> ' + message.guild.id +
+			// 		'\n```',
+			// 	)
+			// 	.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'jpg', dynamic: true }))
+			// ]});
 
 			dataUser.cooldowns[command] = Date.now() + value;
 			await requiredUserDB.findOneAndUpdate({ id: message.author.id }, dataUser, { upset: true });
@@ -174,8 +188,8 @@ module.exports = async (client, message) => {
 				new Discord.MessageEmbed()
 					.setTitle('Something went wrong...')
 					.setDescription('Please report it in our [support server](https://discord.gg/Sr2U5WuaSN)')
-					.setColor('RED')
-				]});
+					.setColor('RED'),
+			] });
 		}
 	});
 };
