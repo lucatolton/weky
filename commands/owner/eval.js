@@ -23,6 +23,7 @@ module.exports.run = async (client, message, args) => {
 		if (typeof evaled !== 'string') {
 			evaled = require('util').inspect(evaled);
 		}
+
 		if (evaled.length > 2000) {
 			const evalcode1 = new MessageEmbed()
 				.setDescription('`Result`\n' + '```js\nDown```')
@@ -32,12 +33,13 @@ module.exports.run = async (client, message, args) => {
 				if (err) console.log('error', err);
 			},
 			), message.channel.send({ files: ['eval.txt'] });
-		}
+		} else {
 		const evalcode = new MessageEmbed()
 			.setDescription('`Result`\n' + `\`\`\`js\n${clean(evaled)}\`\`\``)
 			.setColor('202020');
 
 		message.channel.send({ embeds: [evalcode] });
+		}
 	}
 	catch (err) {
 		const errorcode = new MessageEmbed()

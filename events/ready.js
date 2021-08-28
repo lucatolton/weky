@@ -41,7 +41,7 @@ module.exports = async (client) => {
 			.setURL('https://top.gg/bot/809496186905165834/vote')
 			.setColor('#ffd984')
 			.setThumbnail(user.displayAvatarURL())
-			.setDescription(`**${user.tag}** (${user.id}) just voted for me! They've got they rewards!`)
+			.setDescription(`**${user.tag}** (${user.id}) just voted for me! They've got their rewards!`)
 			.setTimestamp();
 		client.channels.cache.get('860258180424663040').send({ embeds: [embed] });
 		try {
