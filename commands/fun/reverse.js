@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args) => {
   if (!msg) return message.channel.send({ content: 'I can\'t reverse nothing bruh' });
   if (msg.includes('@')) return message.channel.send({ content: 'I will eat your toes.' });
 
-  return message.channel.send({ content: `**Original:** ${msg}\n\n**Reversed:** ${msg.split('').reverse().join(' ')}` });
+  return message.channel.send({ content: `**Original:** ${msg}\n\n**Reversed:** ${msg.split('').reverse().join('')}` });
 
 };
 
